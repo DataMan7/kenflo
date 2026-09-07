@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Request Received | KENFLO Emotional Health Services{% endblock %}
+{% block content %}
+<section class="section"><div class="container narrow">
+  <div class="card success-card">
+    <div class="card-icon big">✅</div>
+    <h1>Thank you — your request has been received.</h1>
+    <p>Your reference number is:</p>
+    <p class="ref-code">{{ ref }}</p>
+    <p>Please keep this reference number. A member of the KENFLO team will reach out to you using your preferred
+      contact method.</p>
+    <p class="fineprint">Reminder: KENFLO provides non-clinical support and is not an emergency service.
+      If you need immediate help, call <strong>911</strong>, or call/text <strong>988</strong> for 24/7
+      emotional or mental-health support.</p>
+    <a href="{{ url_for('public.home') }}" class="btn btn-primary">Back to Home</a>
+  </div>
+</div></section>
+{% endblock %}

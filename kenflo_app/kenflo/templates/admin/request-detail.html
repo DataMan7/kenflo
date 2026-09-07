@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}Request {{ req.reference_code }} | KENFLO Staff{% endblock %}
+{% block content %}
+<div class="container admin-wrap">
+  <div class="page-head">
+    <h1>{{ req.reference_code }} <span class="badge badge-{{ req.status }}">{{ REQ_STATUSES.get(req.status, req.status) }}</span>
+      <span class="badge badge-p-{{ req.priority }}">{{ REQ_PRIORITIES.get(req.priority, req.priority) }}</span></h1>
+    <a class="btn btn-outline" href="{{ url_for('admin.requests_list') }}">← All requests</a>
+  </div>
+
+  <div class="detail-grid">
+    <div>
+      <div class="panel">
+        <h3>Inquiry</h3>
+        <dl class="meta-list">
+          <div><dt>Source</dt><dd>{{ req.source }}</dd></div>
+          <div><dt>Category</dt><dd>{{ REQ_CATEGORIES.get(req.category, req.category) }}</dd></div>
+          <div><dt>Name</dt><dd>{{ req.name }}</dd></div>
+          <div><dt>Email</dt><dd>{{ req.email or '—' }}</dd></div>
+          <div><dt>Phone</dt><dd>{{ req.phone or '—' }}</dd></div>
+          <div><dt>Preferred contact</dt><dd>{{ PREFERRED_CONTACT.get(req.preferred_contact, req.preferred_contact) }}</dd></div>
+          <div><dt>City</dt><dd>{{ req.city or '—' }}</dd></div>
+          <div><dt>Organization</dt><dd>{{ req.organization or '—' }}</dd></div>
+          <div><dt>Service interest</dt><dd>{{ req.service_interest or '—' }}</dd></div>
+          <div><dt>Preferred time</dt><dd>{{ req.preferred_time or '—' }}</dd></div>
+          <div><dt>Client</dt><dd>{% if req.client %}<a href="{{ url_for('admin.client_detail', client_id=req.client.id) }}">{{ req.client.full_name }}</a>{% else %}not linked{% endif %}</dd></div>
+          <div><dt>Received</dt><dd>{{ req.created_at|dt }} {{ req.created_at.strftime('%H:%M') }} UTC</dd></div>
+        </dl>
+        <blockquote class="message-block">{{ req.message }}</blockquote>
+      </div>
+
+      <div class="panel">
+        <h3>Activity notes</h3>
+        {% for n in req.notes %}
+        <div class="note">
+          <p>{{ n.body }}</p>
+          <span class="muted">— {{ n.author.name if n.author else 'System' }}, {{ n.created_at|dt }}</span>
+        </div>
+        {% else %}
+        <p class="muted">No notes yet.</p>
+        {% endfor %}
+        <form method="post" action="{{ url_for('admin.request_add_note', request_id=req.id) }}" class="note-form">
+          <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+          <label for="body">Add a note</label>
+          <textarea id="body" name="body" rows="3" maxlength="2000" required></textarea>
+          <button type="submit" class="btn btn-primary btn-sm">Add Note</button>
+        </form>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel">
+        <h3>Update request</h3>
+        <form method="post" action="{{ url_for('admin.request_update', request_id=req.id) }}">
+          <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+          <label for="status">Status</label>
+          <select id="status" name="status">
+            {% for key, label in REQ_STATUSES.items() %}
+            <option value="{{ key }}" {{ 'selected' if req.status == key }}>{{ label }}</option>
+            {% endfor %}
+          </select>
+          <label for="priority">Priority</label>
+          <select id="priority" name="priority">
+            {% for key, label in REQ_PRIORITIES.items() %}
+            <option value="{{ key }}" {{ 'selected' if req.priority == key }}>{{ label }}</option>
+            {% endfor %}
+          </select>
+          <label for="assigned_to_id">Assigned to</label>
+          <select id="assigned_to_id" name="assigned_to_id">
+            <option value="none">— unassigned —</option>
+            {% for s in staff %}
+            <option value="{{ s.id }}" {{ 'selected' if req.assigned_to_id == s.id }}>{{ s.name }}</option>
+            {% endfor %}
+          </select>
+          <label for="admin_notes">Internal notes</label>
+          <textarea id="admin_notes" name="admin_notes" rows="4" maxlength="5000">{{ req.admin_notes or '' }}</textarea>
+          <button type="submit" class="btn btn-primary btn-block">Save</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h3>Actions</h3>
+        {% if not req.client %}
+        <form method="post" action="{{ url_for('admin.request_convert', request_id=req.id) }}">
+          <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+          <button type="submit" class="btn btn-gold btn-block">Convert to Client</button>
+        </form>
+        <p class="fineprint">Creates a client record from this request's contact details.</p>
+        {% else %}
+        <p>Linked to client: <a href="{{ url_for('admin.client_detail', client_id=req.client.id) }}">{{ req.client.full_name }}</a></p>
+        {% endif %}
+        <a class="btn btn-outline btn-block" href="{{ url_for('admin.request_edit', request_id=req.id) }}">Edit details</a>
+        <details class="danger-zone">
+          <summary>Danger zone</summary>
+          <form method="post" action="{{ url_for('admin.request_delete', request_id=req.id) }}"
+                onsubmit="return confirm('Permanently delete this request? This cannot be undone.');">
+            <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+            <button type="submit" class="btn btn-danger btn-block">Delete request</button>
+          </form>
+        </details>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Contact &amp; Get Support | KENFLO Emotional Health Services{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="container">
+  <h1>Contact &amp; Get Support</h1>
+  <p>Request support, a workshop, or a partnership conversation. We will respond with care.</p>
+</div></section>
+
+<section class="section"><div class="container contact-layout">
+  <form id="request-form" class="card form-card" method="post" action="{{ url_for('public.contact') }}" novalidate>
+    <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+
+    <h2>Request Support</h2>
+    <p class="form-note">All fields marked * are required. Please do not include sensitive medical information.</p>
+
+    <label for="category">What kind of support are you requesting? *</label>
+    <select id="category" name="category" required>
+      {% set f = form or {} %}
+      <option value="support" {{ 'selected' if f.get('category') == 'support' }}>Individual / Family Support</option>
+      <option value="workshop" {{ 'selected' if f.get('category') == 'workshop' }}>Workshop Request</option>
+      <option value="school" {{ 'selected' if f.get('category') == 'school' }}>School Partnership</option>
+      <option value="organization" {{ 'selected' if f.get('category') == 'organization' }}>Organizational / Community Partnership</option>
+      <option value="cultural" {{ 'selected' if f.get('category') == 'cultural' }}>Cultural &amp; Immigration Support</option>
+      <option value="general" {{ 'selected' if f.get('category') == 'general' }}>General Inquiry</option>
+    </select>
+
+    <label for="name">Your name *</label>
+    <input type="text" id="name" name="name" maxlength="200" value="{{ form.get('name', '') }}" required>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" maxlength="255" value="{{ form.get('email', '') }}">
+
+    <label for="phone">Phone</label>
+    <input type="tel" id="phone" name="phone" maxlength="40" value="{{ form.get('phone', '') }}">
+
+    <p class="form-note">Please provide at least one way to reach you (email or phone).</p>
+
+    <label for="preferred_contact">Preferred contact method</label>
+    <select id="preferred_contact" name="preferred_contact">
+      <option value="email" {{ 'selected' if form.get('preferred_contact', 'email') == 'email' }}>Email</option>
+      <option value="phone" {{ 'selected' if form.get('preferred_contact') == 'phone' }}>Phone call</option>
+      <option value="text" {{ 'selected' if form.get('preferred_contact') == 'text' }}>Text message</option>
+    </select>
+
+    <label for="city">City</label>
+    <input type="text" id="city" name="city" maxlength="120" value="{{ form.get('city', '') }}">
+
+    <label for="organization">Organization / school / congregation (if requesting on behalf of one)</label>
+    <input type="text" id="organization" name="organization" maxlength="200" value="{{ form.get('organization', '') }}">
+
+    <label for="service_interest">Which service are you most interested in?</label>
+    <input type="text" id="service_interest" name="service_interest" maxlength="200" value="{{ form.get('service_interest', '') }}">
+
+    <label for="preferred_time">Preferred days / times to be contacted</label>
+    <input type="text" id="preferred_time" name="preferred_time" maxlength="120" value="{{ form.get('preferred_time', '') }}">
+
+    <label for="message">How can we help? *</label>
+    <textarea id="message" name="message" rows="6" maxlength="5000" required>{{ form.get('message', '') }}</textarea>
+
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Send Request</button>
+
+    <p class="fineprint">By submitting this form you understand that KENFLO provides non-clinical services that
+      are not psychotherapy, clinical counseling, diagnosis, medical treatment, or emergency crisis care.</p>
+  </form>
+
+  <aside class="contact-aside">
+    <div class="panel">
+      <h3>What happens next?</h3>
+      <ol>
+        <li>Your request is recorded with a private reference number.</li>
+        <li>A KENFLO team member reviews it and reaches out using your preferred contact method.</li>
+        <li>Together you decide on the best next step — coaching, a workshop, resources, or a referral.</li>
+      </ol>
+    </div>
+    <div class="crisis-card">
+      <h3>Need immediate help?</h3>
+      <p>KENFLO is not an emergency or crisis-response service. Call <strong>911</strong> if there is immediate
+        danger, or call/text <strong>988</strong> for 24/7 emotional or mental-health support.</p>
+    </div>
+  </aside>
+</div></section>
+{% endblock %}

@@ -1,0 +1,50 @@
+{# Shared fields for creating/editing a service request. Expects: req (may be None), staff list optional in variable `staff`. #}
+{% set f = form_data if form_data is defined else (req or {}) %}
+<label for="category">Category *</label>
+<select id="category" name="category" required>
+  {% for key, label in [('support', 'Individual / Family Support'), ('workshop', 'Workshop Request'), ('school', 'School Partnership'), ('organization', 'Organizational / Community Partnership'), ('cultural', 'Cultural & Immigration Support'), ('general', 'General Inquiry')] %}
+  <option value="{{ key }}" {{ 'selected' if f.get('category') if f is mapping else f.category == key }}>{{ label }}</option>
+  {% endfor %}
+</select>
+
+<label for="name">Contact name *</label>
+<input type="text" id="name" name="name" maxlength="200" required value="{{ (f.get('name') if f is mapping else f.name) or '' }}">
+
+<div class="form-row">
+  <div>
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" maxlength="255" value="{{ (f.get('email') if f is mapping else f.email) or '' }}">
+  </div>
+  <div>
+    <label for="phone">Phone</label>
+    <input type="tel" id="phone" name="phone" maxlength="40" value="{{ (f.get('phone') if f is mapping else f.phone) or '' }}">
+  </div>
+</div>
+
+<label for="preferred_contact">Preferred contact</label>
+<select id="preferred_contact" name="preferred_contact">
+  {% set pc = (f.get('preferred_contact') if f is mapping else f.preferred_contact) or 'email' %}
+  <option value="email" {{ 'selected' if pc == 'email' }}>Email</option>
+  <option value="phone" {{ 'selected' if pc == 'phone' }}>Phone call</option>
+  <option value="text" {{ 'selected' if pc == 'text' }}>Text message</option>
+</select>
+
+<div class="form-row">
+  <div>
+    <label for="city">City</label>
+    <input type="text" id="city" name="city" maxlength="120" value="{{ (f.get('city') if f is mapping else f.city) or '' }}">
+  </div>
+  <div>
+    <label for="organization">Organization</label>
+    <input type="text" id="organization" name="organization" maxlength="200" value="{{ (f.get('organization') if f is mapping else f.organization) or '' }}">
+  </div>
+</div>
+
+<label for="service_interest">Service interest</label>
+<input type="text" id="service_interest" name="service_interest" maxlength="200" value="{{ (f.get('service_interest') if f is mapping else f.service_interest) or '' }}">
+
+<label for="preferred_time">Preferred time to contact</label>
+<input type="text" id="preferred_time" name="preferred_time" maxlength="120" value="{{ (f.get('preferred_time') if f is mapping else f.preferred_time) or '' }}">
+
+<label for="message">Message *</label>
+<textarea id="message" name="message" rows="5" maxlength="5000">{{ (f.get('message') if f is mapping else f.message) or '' }}</textarea>

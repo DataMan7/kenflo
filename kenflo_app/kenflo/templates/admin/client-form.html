@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit Client' if client else 'New Client' }} | KENFLO Staff{% endblock %}
+{% block content %}
+<div class="container admin-wrap narrow">
+  <div class="page-head">
+    <h1>{{ 'Edit: ' + client.full_name if client else 'New Client' }}</h1>
+    {% if client %}<a class="btn btn-outline" href="{{ url_for('admin.client_detail', client_id=client.id) }}">Back</a>{% endif %}
+  </div>
+  <div class="card form-card">
+    <form method="post"
+          action="{{ url_for('admin.client_new') if not client else url_for('admin.client_edit', client_id=client.id) }}">
+      <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+      {% include "admin/_client_fields.html" %}
+      <button type="submit" class="btn btn-primary btn-block">{{ 'Save Changes' if client else 'Create Client' }}</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

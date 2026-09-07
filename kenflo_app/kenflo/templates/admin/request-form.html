@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit Request' if req else 'New Request' }} | KENFLO Staff{% endblock %}
+{% block content %}
+<div class="container admin-wrap narrow">
+  <div class="page-head">
+    <h1>{{ 'Edit Request ' + req.reference_code if req else 'Create Office Request' }}</h1>
+    {% if req %}<a class="btn btn-outline" href="{{ url_for('admin.request_detail', request_id=req.id) }}">Back</a>{% endif %}
+  </div>
+  <div class="card form-card">
+    <form method="post" action="{{ url_for('admin.request_new') if not req else url_for('admin.request_update', request_id=req.id) }}">
+      <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+      {% include "admin/_request_fields.html" %}
+      {% if req %}
+      <label for="status">Status</label>
+      <select id="status" name="status">
+        {% for key, label in REQ_STATUSES.items() %}
+        <option value="{{ key }}" {{ 'selected' if req.status == key }}>{{ label }}</option>
+        {% endfor %}
+      </select>
+      <label for="priority">Priority</label>
+      <select id="priority" name="priority">
+        {% for key, label in REQ_PRIORITIES.items() %}
+        <option value="{{ key }}" {{ 'selected' if req.priority == key }}>{{ label }}</option>
+        {% endfor %}
+      </select>
+      <label for="assigned_to_id">Assigned to</label>
+      <select id="assigned_to_id" name="assigned_to_id">
+        <option value="none">— unassigned —</option>
+        {% for s in staff %}
+        <option value="{{ s.id }}" {{ 'selected' if req.assigned_to_id == s.id }}>{{ s.name }}</option>
+        {% endfor %}
+      </select>
+      {% endif %}
+      <label for="admin_notes">Internal notes</label>
+      <textarea id="admin_notes" name="admin_notes" rows="3" maxlength="5000">{{ req.admin_notes or '' if req else '' }}</textarea>
+      <button type="submit" class="btn btn-primary btn-block">{{ 'Save Changes' if req else 'Create Request' }}</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

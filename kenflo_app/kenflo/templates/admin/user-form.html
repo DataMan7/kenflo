@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit Staff User' if user else 'New Staff User' }} | KENFLO Staff{% endblock %}
+{% block content %}
+<div class="container admin-wrap narrow">
+  <div class="page-head">
+    <h1>{{ 'Edit: ' + user.name if user else 'New Staff User' }}</h1>
+    <a class="btn btn-outline" href="{{ url_for('admin.users_list') }}">← All staff</a>
+  </div>
+  <div class="card form-card">
+    <form method="post"
+          action="{{ url_for('admin.user_new') if not user else url_for('admin.user_edit', user_id=user.id) }}">
+      <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+      <label for="name">Full name *</label>
+      <input type="text" id="name" name="name" maxlength="120" required value="{{ user.name if user else '' }}">
+
+      <label for="email">Email *</label>
+      <input type="email" id="email" name="email" maxlength="255" required
+             value="{{ user.email if user else '' }}" {{ 'disabled' if user }}>
+
+      {% if not user %}
+      <label for="password">Password * (min 10 characters)</label>
+      <input type="password" id="password" name="password" minlength="10" required>
+      {% else %}
+      <label for="password">Reset password (leave blank to keep current)</label>
+      <input type="password" id="password" name="password" minlength="10">
+      {% endif %}
+
+      <label for="role">Role</label>
+      <select id="role" name="role">
+        <option value="staff" {{ 'selected' if user and user.role == 'staff' }}>Staff</option>
+        <option value="admin" {{ 'selected' if user and user.role == 'admin' }}>Administrator</option>
+      </select>
+
+      {% if user %}
+      <label class="checkbox-label">
+        <input type="checkbox" name="is_active" value="1" {{ 'checked' if user.is_active }}>
+        Account is active
+      </label>
+      {% endif %}
+
+      <button type="submit" class="btn btn-primary btn-block">{{ 'Save Changes' if user else 'Create User' }}</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

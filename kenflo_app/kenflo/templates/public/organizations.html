@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Organizations &amp; Communities | KENFLO Emotional Health Services{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="container">
+  <h1>Organizations &amp; Communities</h1>
+  <p>Let's Build Healthier Communities Together</p>
+</div></section>
+
+<section class="section"><div class="container prose">
+  <p>KENFLO welcomes partnerships with organizations that share our commitment to stronger individuals, healthier
+    families, and resilient communities.</p>
+  <p><strong>Potential partners include:</strong> Schools · Churches · Healthcare Organizations · Mental-Health
+    Providers · Social-Service Agencies · Nonprofits · Employers · Community Organizations · Youth Programs ·
+    Immigrant-Serving Organizations.</p>
+
+  <div class="two-col">
+    <div class="panel">
+      <h3>Partnership Opportunities</h3>
+      <ul>
+        <li>Community workshops</li>
+        <li>Staff wellness programs</li>
+        <li>Youth resilience programs</li>
+        <li>Parent education</li>
+        <li>Faith-community education</li>
+        <li>Referral partnerships</li>
+        <li>Cultural adjustment programs</li>
+        <li>Emotional wellness events</li>
+        <li>Community education initiatives</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Community Leader Programs</h3>
+      <p>Educational programs for community and faith leaders that build awareness of emotional wellness needs,
+        strengthen everyday support skills, and connect community members with appropriate resources. These
+        programs do <strong>not</strong> train participants to diagnose mental-health conditions or practice
+        psychotherapy — they help community leaders become informed and responsible bridges to appropriate support.</p>
+    </div>
+  </div>
+
+  <div class="cta-band">
+    <h2>Request a Partnership Conversation</h2>
+    <p>Tell us about your organization and the people you serve — we will design something practical together.</p>
+    <a href="{{ url_for('public.contact') }}" class="btn btn-gold btn-lg">Partner With KENFLO</a>
+  </div>
+</div></section>
+{% endblock %}

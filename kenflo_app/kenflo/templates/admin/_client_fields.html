@@ -1,0 +1,76 @@
+{# Shared fields for creating/editing a client. Expects: client (may be None). #}
+{% set c = client or {} %}
+<div class="form-row">
+  <div>
+    <label for="first_name">First name *</label>
+    <input type="text" id="first_name" name="first_name" maxlength="100" required value="{{ (c.get('first_name') if c is mapping else c.first_name) or '' }}">
+  </div>
+  <div>
+    <label for="last_name">Last name *</label>
+    <input type="text" id="last_name" name="last_name" maxlength="100" required value="{{ (c.get('last_name') if c is mapping else c.last_name) or '' }}">
+  </div>
+</div>
+
+<div class="form-row">
+  <div>
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" maxlength="255" value="{{ (c.get('email') if c is mapping else c.email) or '' }}">
+  </div>
+  <div>
+    <label for="phone">Phone</label>
+    <input type="tel" id="phone" name="phone" maxlength="40" value="{{ (c.get('phone') if c is mapping else c.phone) or '' }}">
+  </div>
+</div>
+
+<div class="form-row">
+  <div>
+    <label for="preferred_contact">Preferred contact</label>
+    {% set pc = (c.get('preferred_contact') if c is mapping else c.preferred_contact) or 'email' %}
+    <select id="preferred_contact" name="preferred_contact">
+      <option value="email" {{ 'selected' if pc == 'email' }}>Email</option>
+      <option value="phone" {{ 'selected' if pc == 'phone' }}>Phone call</option>
+      <option value="text" {{ 'selected' if pc == 'text' }}>Text message</option>
+    </select>
+  </div>
+  <div>
+    <label for="status">Status</label>
+    {% set cs = (c.get('status') if c is mapping else c.status) or 'active' %}
+    <select id="status" name="status">
+      <option value="active" {{ 'selected' if cs == 'active' }}>Active</option>
+      <option value="inactive" {{ 'selected' if cs == 'inactive' }}>Inactive</option>
+      <option value="archived" {{ 'selected' if cs == 'archived' }}>Archived</option>
+    </select>
+  </div>
+</div>
+
+<div class="form-row">
+  <div>
+    <label for="city">City</label>
+    <input type="text" id="city" name="city" maxlength="120" value="{{ (c.get('city') if c is mapping else c.city) or '' }}">
+  </div>
+  <div>
+    <label for="language">Preferred language</label>
+    <input type="text" id="language" name="language" maxlength="80" value="{{ (c.get('language') if c is mapping else c.language) or '' }}">
+  </div>
+</div>
+
+<div class="form-row">
+  <div>
+    <label for="age_group">Age group</label>
+    <select id="age_group" name="age_group">
+      {% set ag = (c.get('age_group') if c is mapping else c.age_group) or '' %}
+      <option value="" {{ 'selected' if not ag }}>—</option>
+      <option value="child" {{ 'selected' if ag == 'child' }}>Child</option>
+      <option value="teen" {{ 'selected' if ag == 'teen' }}>Teen</option>
+      <option value="adult" {{ 'selected' if ag == 'adult' }}>Adult</option>
+      <option value="older_adult" {{ 'selected' if ag == 'older_adult' }}>Older adult</option>
+    </select>
+  </div>
+  <div>
+    <label for="referred_by">Referred by</label>
+    <input type="text" id="referred_by" name="referred_by" maxlength="200" value="{{ (c.get('referred_by') if c is mapping else c.referred_by) or '' }}">
+  </div>
+</div>
+
+<label for="notes">Notes</label>
+<textarea id="notes" name="notes" rows="4" maxlength="5000">{{ (c.get('notes') if c is mapping else c.notes) or '' }}</textarea>

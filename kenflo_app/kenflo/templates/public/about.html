@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}About Us | KENFLO Emotional Health Services{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="container">
+  <h1>About KENFLO</h1>
+  <p>Emotional Wellness for Everyday Life</p>
+</div></section>
+
+<section class="section"><div class="container prose">
+  <p>Emotional wellness affects how we respond to stress, communicate with others, navigate relationships,
+    make decisions, manage transitions, and participate in our families and communities.</p>
+  <p>Yet <strong>not every difficult season of life requires clinical mental health treatment.</strong> Sometimes
+    people need a supportive environment where they can reflect, learn, strengthen practical skills, identify
+    available resources, and determine their next steps.</p>
+  <p>KENFLO Emotional Health Services LLC exists to help meet that need. We provide accessible, stigma-free and
+    culturally responsive <strong>non-clinical</strong> emotional wellness services focused on education,
+    prevention, resilience, communication, personal development, family strengthening, coping skills, and
+    community well-being.</p>
+  <p>We also recognize the limits of non-clinical services. When someone's needs appear to require licensed
+    psychotherapy, clinical assessment, psychiatric care, substance-use treatment, medical care, crisis services,
+    or another specialized service, KENFLO encourages and facilitates connection with appropriately qualified
+    professionals and community resources.</p>
+
+  <div class="two-col">
+    <div class="panel">
+      <h3>Our Mission</h3>
+      <p>To strengthen individuals, families, and communities through accessible, culturally responsive,
+        non-clinical emotional wellness support, coaching, education, prevention, practical skills development,
+        and connections to appropriate professional resources.</p>
+    </div>
+    <div class="panel">
+      <h3>Our Vision</h3>
+      <p>A community where people have the knowledge, skills, relationships, resources, and confidence they need
+        to navigate life's challenges with resilience, dignity, hope, and healthy connection.</p>
+    </div>
+  </div>
+
+  <h2>What We Help People Build</h2>
+  <ul class="checklist">
+    <li>Emotional resilience and healthy coping skills</li>
+    <li>Improved communication and emotional awareness</li>
+    <li>Stronger problem-solving skills and confidence</li>
+    <li>Stronger family relationships and healthier approaches to conflict</li>
+    <li>Improved parent-child communication</li>
+    <li>Confidence navigating cultural and immigration transitions</li>
+    <li>The ability to recognize when additional professional help may be appropriate</li>
+  </ul>
+
+  <h2>Our Core Values</h2>
+  <p><strong>Compassion · Resilience · Cultural Responsiveness · Prevention · Accessibility · Collaboration · Integrity</strong></p>
+
+  <div class="panel">
+    <h3>Early Support Matters</h3>
+    <p>People should not have to wait until a situation becomes a crisis before seeking support. KENFLO provides
+      an approachable place to begin.</p>
+    <a href="{{ url_for('public.contact') }}" class="btn btn-primary">Request Individual or Family Support</a>
+  </div>
+</div></section>
+{% endblock %}

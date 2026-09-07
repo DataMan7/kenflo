@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Client: {{ client.full_name }} | KENFLO Staff{% endblock %}
+{% block content %}
+<div class="container admin-wrap">
+  <div class="page-head">
+    <h1>{{ client.full_name }} <span class="badge badge-c-{{ client.status }}">{{ client.status|capitalize }}</span></h1>
+    <div>
+      <a class="btn btn-outline" href="{{ url_for('admin.clients_list') }}">← All clients</a>
+      <a class="btn btn-primary" href="{{ url_for('admin.client_edit', client_id=client.id) }}">Edit</a>
+    </div>
+  </div>
+
+  <div class="detail-grid">
+    <div class="panel">
+      <h3>Details</h3>
+      <dl class="meta-list">
+        <div><dt>Email</dt><dd>{{ client.email or '—' }}</dd></div>
+        <div><dt>Phone</dt><dd>{{ client.phone or '—' }}</dd></div>
+        <div><dt>Preferred contact</dt><dd>{{ PREFERRED_CONTACT.get(client.preferred_contact, client.preferred_contact) }}</dd></div>
+        <div><dt>City</dt><dd>{{ client.city or '—' }}</dd></div>
+        <div><dt>Language</dt><dd>{{ client.language or '—' }}</dd></div>
+        <div><dt>Age group</dt><dd>{{ (client.age_group or '—')|capitalize }}</dd></div>
+        <div><dt>Referred by</dt><dd>{{ client.referred_by or '—' }}</dd></div>
+        <div><dt>Added</dt><dd>{{ client.created_at|dt }}</dd></div>
+        <div><dt>Updated</dt><dd>{{ client.updated_at|dt }}</dd></div>
+      </dl>
+      {% if client.notes %}
+      <h3>Notes</h3>
+      <p>{{ client.notes }}</p>
+      {% endif %}
+      <details class="danger-zone">
+        <summary>Danger zone</summary>
+        <form method="post" action="{{ url_for('admin.client_delete', client_id=client.id) }}"
+              onsubmit="return confirm('Delete this client? Linked requests will be kept but unlinked.');">
+          <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+          <button type="submit" class="btn btn-danger btn-block">Delete client</button>
+        </form>
+      </details>
+    </div>
+
+    <div class="panel">
+      <h3>Service requests ({{ reqs|length }})</h3>
+      {% for r in reqs %}
+      <div class="note">
+        <p><a href="{{ url_for('admin.request_detail', request_id=r.id) }}">{{ r.reference_code }}</a>
+          — {{ REQ_CATEGORIES.get(r.category, r.category) }}
+          <span class="badge badge-{{ r.status }}">{{ REQ_STATUSES.get(r.status, r.status) }}</span></p>
+        <span class="muted">{{ r.created_at|dt }}</span>
+      </div>
+      {% else %}
+      <p class="muted">No requests linked to this client yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

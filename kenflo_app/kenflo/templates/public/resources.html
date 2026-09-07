@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Resources &amp; Referrals | KENFLO Emotional Health Services{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="container">
+  <h1>When More Support Is Needed</h1>
+  <p>Helping You Find the Right Level of Care</p>
+</div></section>
+
+<section class="section"><div class="container prose">
+  <p>KENFLO believes responsible emotional wellness support includes recognizing when someone's needs extend
+    beyond our services. We seek collaborative relationships with licensed mental-health professionals,
+    healthcare providers, schools, community organizations, social-service agencies, faith communities, and
+    other qualified providers.</p>
+
+  <div class="crisis-card">
+    <h3>🚨 In an emergency</h3>
+    <p>KENFLO is <strong>not</strong> an emergency or crisis-response service.</p>
+    <p>If there is immediate danger, call <strong>911</strong>.</p>
+    <p>For immediate emotional or mental-health support, call or text <strong>988</strong> — available 24/7 in
+      Minnesota for emotional or mental-health distress, including suicide and substance-use concerns.</p>
+  </div>
+
+  <h2>When appropriate, we may encourage services such as:</h2>
+  <div class="chip-cloud">
+    <span class="chip">Licensed mental-health counseling</span><span class="chip">Psychotherapy</span>
+    <span class="chip">Psychological assessment</span><span class="chip">Psychiatric evaluation</span>
+    <span class="chip">Medication-related services</span><span class="chip">Substance-use treatment</span>
+    <span class="chip">Domestic-violence services</span><span class="chip">Clinical trauma treatment</span>
+    <span class="chip">Medical care</span><span class="chip">Crisis services</span><span class="chip">Social services</span>
+  </div>
+
+  <div class="panel">
+    <h3>Referral Does Not Mean Rejection</h3>
+    <p>Sometimes the most responsible form of support is helping someone reach a professional whose qualifications
+      and services better match the person's needs. KENFLO seeks to make that transition respectful, supportive,
+      and stigma-free.</p>
+    <a href="{{ url_for('public.contact') }}" class="btn btn-primary">Request Resource Navigation Support</a>
+  </div>
+</div></section>
+{% endblock %}

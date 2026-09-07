@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | KENFLO Staff{% endblock %}
+{% block content %}
+<div class="container admin-wrap">
+  <div class="page-head">
+    <h1>Welcome back, {{ cur_user.name.split()[0] }}</h1>
+    <a href="{{ url_for('admin.request_new') }}" class="btn btn-primary">+ New Request</a>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><span class="stat-num">{{ stats.new }}</span><span class="stat-label">New requests</span></div>
+    <div class="stat-card"><span class="stat-num">{{ stats.open }}</span><span class="stat-label">Open requests</span></div>
+    <div class="stat-card"><span class="stat-num">{{ stats.requests_total }}</span><span class="stat-label">Total requests</span></div>
+    <div class="stat-card"><span class="stat-num">{{ stats.clients }}</span><span class="stat-label">Clients</span></div>
+  </div>
+
+  <div class="panel">
+    <div class="page-head">
+      <h2>Latest requests</h2>
+      <a href="{{ url_for('admin.requests_list') }}">View all →</a>
+    </div>
+    {% if recent %}
+    <table class="table">
+      <thead><tr><th>Ref</th><th>Name</th><th>Category</th><th>Status</th><th>Priority</th><th>Received</th></tr></thead>
+      <tbody>
+        {% for r in recent %}
+        <tr>
+          <td><a href="{{ url_for('admin.request_detail', request_id=r.id) }}">{{ r.reference_code }}</a></td>
+          <td>{{ r.name }}</td>
+          <td>{{ REQ_CATEGORIES.get(r.category, r.category) }}</td>
+          <td><span class="badge badge-{{ r.status }}">{{ REQ_STATUSES.get(r.status, r.status) }}</span></td>
+          <td><span class="badge badge-p-{{ r.priority }}">{{ REQ_PRIORITIES.get(r.priority, r.priority) }}</span></td>
+          <td>{{ r.created_at|dt }} {{ r.created_at.strftime('%H:%M') }} UTC</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>No requests yet. When someone submits the website contact form, it will appear here.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

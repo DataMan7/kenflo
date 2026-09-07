@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Youth &amp; Schools | KENFLO Emotional Health Services{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="container">
+  <h1>Youth &amp; Schools</h1>
+  <p>Helping Young People Build Skills for Life</p>
+</div></section>
+
+<section class="section"><div class="container prose">
+  <p>Young people are navigating a rapidly changing world. Social relationships, technology, school expectations,
+    family changes, cultural transitions, peer pressure, identity development, and uncertainty about the future
+    can create significant pressures.</p>
+  <p>KENFLO offers age-appropriate <strong>non-clinical</strong> coaching and emotional wellness education
+    designed to strengthen resilience and practical life skills.</p>
+
+  <div class="two-col">
+    <div class="panel">
+      <h3>Teen Emotional Wellness Coaching</h3>
+      <ul>
+        <li>Confidence and personal development</li>
+        <li>Identity and belonging</li>
+        <li>Peer-pressure skills</li>
+        <li>Healthy technology habits</li>
+        <li>Stress-management skills</li>
+        <li>Emotional awareness and communication</li>
+        <li>Decision-making and goal setting</li>
+        <li>Resilience and life transitions</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>School Partnership Programs</h3>
+      <ul>
+        <li>Student resilience programs</li>
+        <li>Emotional wellness education</li>
+        <li>Anti-bullying education</li>
+        <li>Healthy communication workshops</li>
+        <li>Stress-management skills</li>
+        <li>Emotional intelligence</li>
+        <li>Healthy peer relationships</li>
+        <li>Cultural adjustment education</li>
+        <li>Parent education &amp; staff wellness education</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="notice">
+    <strong>Safeguarding:</strong> services involving minors are provided according to applicable consent,
+    safeguarding, privacy, reporting, and organizational policies. Programs may be customized in collaboration
+    with schools and community organizations.
+  </div>
+
+  <a href="{{ url_for('public.contact') }}" class="btn btn-primary btn-lg">Discuss a School Partnership</a>
+</div></section>
+{% endblock %}

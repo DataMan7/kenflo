@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Cultural &amp; Immigration Support | KENFLO Emotional Health Services{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="container">
+  <h1>Cultural &amp; Immigration Adjustment</h1>
+  <p>Culture Matters in Emotional Wellness</p>
+</div></section>
+
+<section class="section"><div class="container prose">
+  <p>People experience life through the context of family, culture, community, language, faith traditions,
+    relationships, migration experiences, values, and personal history. Moving between cultures can create
+    opportunities — but also significant adjustment.</p>
+
+  <div class="two-col">
+    <div class="panel">
+      <h3>What We Support</h3>
+      <ul>
+        <li>Cultural adjustment for individuals and families</li>
+        <li>Changing family roles across cultures</li>
+        <li>Identity and belonging</li>
+        <li>Intergenerational communication</li>
+        <li>Parent-youth adjustment differences</li>
+        <li>Community connection</li>
+        <li>Resource navigation</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Our Approach</h3>
+      <p>Practical, culturally responsive conversations and skills-building that respect your family's values and
+        experiences. Support is provided in a stigma-free environment, and we help families identify appropriate
+        professional and community resources when additional care is needed.</p>
+    </div>
+  </div>
+
+  <a href="{{ url_for('public.contact') }}" class="btn btn-primary btn-lg">Request Cultural Adjustment Support</a>
+</div></section>
+{% endblock %}

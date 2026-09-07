@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Groups &amp; Workshops | KENFLO Emotional Health Services{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="container">
+  <h1>Groups &amp; Workshops</h1>
+  <p>Practical Education. Connection. Reflection. Emotional Wellness Skills.</p>
+</div></section>
+
+<section class="section"><div class="container prose">
+  <p>KENFLO brings people together in supportive group settings to learn and practice everyday emotional
+    wellness skills. Group offerings can be customized for communities, workplaces, faith communities, and
+    youth-serving organizations.</p>
+
+  <div class="two-col">
+    <div class="panel">
+      <h3>Wellness &amp; Prevention Services</h3>
+      <ul>
+        <li><strong>Stress-Management Coaching</strong> — breathing and relaxation exercises, grounding strategies,
+          guided reflection, stress-awareness practices, healthy routines, emotional self-regulation, and practical coping strategies.</li>
+        <li><strong>Mind-Body Wellness</strong> — reflective journaling, relaxation exercises, mindful awareness,
+          mental-clarity routines, self-reflection, healthy lifestyle practices, and personal wellness planning.</li>
+        <li><strong>Personal Support &amp; Resource Planning</strong> — a practical personal support plan identifying
+          sources of social support, healthy coping strategies, personal warning signs, trusted contacts, community
+          and professional resources, and steps for seeking additional assistance.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Workshop Topics</h3>
+      <ul>
+        <li>Emotional intelligence &amp; awareness</li>
+        <li>Resilience building</li>
+        <li>Stress management &amp; burnout prevention</li>
+        <li>Trauma awareness (educational)</li>
+        <li>Healthy communication</li>
+        <li>Conflict management</li>
+        <li>Grief &amp; loss education</li>
+        <li>Customized workshops on request</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="notice">
+    <strong>Please note:</strong> these are wellness practices and educational programs. They are not
+    psychotherapy or clinical treatment, and they do not replace professional crisis assessment, emergency
+    services, or clinical safety planning.
+  </div>
+
+  <a href="{{ url_for('public.contact') }}" class="btn btn-primary btn-lg">Bring a Workshop to Your Organization</a>
+</div></section>
+{% endblock %}

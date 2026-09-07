@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+  <div class="container hero-inner">
+    <p class="eyebrow">KENFLO Emotional Health Services LLC</p>
+    <h1>You Don't Have to Navigate Life's Challenges Alone</h1>
+    <p class="lede">Compassionate, culturally responsive, <strong>non-clinical</strong> emotional wellness
+      support, coaching, education, and practical skills development for individuals, families, youth,
+      communities, and organizations.</p>
+    <div class="hero-actions">
+      <a href="{{ url_for('public.contact') }}" class="btn btn-primary btn-lg">Find Support</a>
+      <a href="{{ url_for('public.services') }}" class="btn btn-outline btn-lg">Explore Services</a>
+      <a href="{{ url_for('public.contact', _anchor='request-form') }}" class="btn btn-ghost btn-lg">Partner With KENFLO</a>
+    </div>
+  </div>
+</section>
+
+<section class="trust-statement">
+  <div class="container">
+    <h2>Support Before Challenges Become Overwhelming</h2>
+    <p>KENFLO provides an approachable, stigma-free place to strengthen resilience, improve communication,
+      develop healthier coping skills, navigate life and cultural transitions, and identify appropriate
+      resources when additional professional care is needed.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">How We Help</h2>
+    <p class="section-sub">Six paths of non-clinical emotional wellness support.</p>
+    <div class="card-grid">
+      <a class="card" href="{{ url_for('public.services') }}">
+        <div class="card-icon">🌿</div>
+        <h3>Individual Wellness</h3>
+        <p>Build resilience, strengthen coping skills, navigate change, and support personal growth.</p>
+      </a>
+      <a class="card" href="{{ url_for('public.services') }}">
+        <div class="card-icon">🤝</div>
+        <h3>Families &amp; Relationships</h3>
+        <p>Strengthen communication, relationships, parenting skills, and family connection.</p>
+      </a>
+      <a class="card" href="{{ url_for('public.youth_schools') }}">
+        <div class="card-icon">🎓</div>
+        <h3>Youth &amp; Schools</h3>
+        <p>Equip young people with practical skills for resilience, communication, confidence, and healthier decision-making.</p>
+      </a>
+      <a class="card" href="{{ url_for('public.groups_workshops') }}">
+        <div class="card-icon">👥</div>
+        <h3>Groups &amp; Workshops</h3>
+        <p>Bring people together for practical education, connection, reflection, and emotional wellness skills.</p>
+      </a>
+      <a class="card" href="{{ url_for('public.cultural_support') }}">
+        <div class="card-icon">🌍</div>
+        <h3>Cultural Adjustment</h3>
+
+<section class="section section-alt">
+  <div class="container split">
+    <div>
+      <h2 class="section-title">Why KENFLO?</h2>
+      <ul class="checklist">
+        <li><strong>Compassionate</strong> — every person deserves dignity, empathy, respect, and an opportunity to be heard.</li>
+        <li><strong>Practical</strong> — skills and strategies people can apply to everyday life.</li>
+        <li><strong>Preventive</strong> — early support rather than waiting for challenges to become overwhelming.</li>
+        <li><strong>Culturally responsive</strong> — culture, family, community, migration, and faith traditions matter.</li>
+        <li><strong>Family &amp; community centered</strong> — healthy individuals build stronger communities.</li>
+        <li><strong>Collaborative</strong> — we connect people with qualified professionals when needs extend beyond our scope.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Not every difficult season requires clinical treatment.</h3>
+      <p>But every person deserves support. KENFLO fills an important space between trying to manage life's
+        challenges alone and situations requiring professional clinical treatment — while recognizing when a
+        referral to a licensed professional may be appropriate.</p>
+      <a href="{{ url_for('public.contact') }}" class="btn btn-primary">Request Support</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Who We Serve</h2>
+    <div class="chip-cloud">
+      <span class="chip">Individuals</span><span class="chip">Couples &amp; Families</span>
+      <span class="chip">Parents</span><span class="chip">Teens &amp; Youth</span><span class="chip">Groups</span>
+      <span class="chip">Schools</span><span class="chip">Churches &amp; Faith Communities</span>
+      <span class="chip">Nonprofits</span><span class="chip">Community Organizations</span>
+      <span class="chip">Employers &amp; Workplaces</span><span class="chip">Multicultural &amp; Immigrant Communities</span>
+      <span class="chip">Community Leaders</span>
+    </div>
+    <div class="cta-band">
+      <h2>Ready to take the first step?</h2>
+      <p>Request support, bring a workshop to your organization, or discuss a school partnership.</p>
+      <a href="{{ url_for('public.contact') }}" class="btn btn-gold btn-lg">Get Support Today</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt legal-section" id="privacy">
+  <div class="container">
+    <h2 class="section-title">Important Service Information</h2>
+    <div class="legal-cols">
+      <div id="terms">
+        <h3>Terms &amp; Disclaimer</h3>
+        <p class="fineprint">KENFLO provides non-clinical emotional wellness support, coaching, education, skills
+          development, prevention programming, workshops, and resource navigation. KENFLO's services are not
+          psychotherapy, professional clinical counseling, psychological or psychiatric diagnosis, clinical
+          assessment, medical treatment, or emergency crisis care. When someone's needs appear to require licensed
+          care, KENFLO encourages and facilitates connection with appropriately qualified professionals.</p>
+      </div>
+      <div id="accessibility">
+        <h3>Accessibility</h3>
+        <p class="fineprint">We are committed to making emotional wellness resources approachable, understandable,
+          and stigma-free. If you experience difficulty using this website or accessing our services, please
+          contact us and we will work to accommodate your needs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+        <p>Support individuals and families navigating immigration, cultural transitions, changing family roles, identity, and belonging.</p>
+      </a>
+      <a class="card" href="{{ url_for('public.organizations') }}">
+        <div class="card-icon">🏢</div>
+        <h3>Organizations &amp; Communities</h3>
+        <p>Strengthen workplaces, churches, nonprofits, schools, and community organizations through customized wellness education.</p>
+      </a>
+    </div>
+  </div>
+</section>

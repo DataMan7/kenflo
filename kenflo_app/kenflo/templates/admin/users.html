@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Staff Users | KENFLO Staff{% endblock %}
+{% block content %}
+<div class="container admin-wrap">
+  <div class="page-head">
+    <h1>Staff Users</h1>
+    <a href="{{ url_for('admin.user_new') }}" class="btn btn-primary">+ Add Staff User</a>
+  </div>
+  <table class="table">
+    <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Added</th><th></th></tr></thead>
+    <tbody>
+      {% for u in users %}
+      <tr>
+        <td>{{ u.name }}{% if u.id == cur_user.id %} <span class="muted">(you)</span>{% endif %}</td>
+        <td>{{ u.email }}</td>
+        <td><span class="badge badge-role-{{ u.role }}">{{ u.role|capitalize }}</span></td>
+        <td>{% if u.is_active %}<span class="badge badge-c-active">Active</span>{% else %}<span class="badge badge-c-inactive">Inactive</span>{% endif %}</td>
+        <td>{{ u.created_at|dt }}</td>
+        <td class="row-actions">
+          <a class="btn btn-sm btn-outline" href="{{ url_for('admin.user_edit', user_id=u.id) }}">Edit</a>
+          {% if u.id != cur_user.id %}
+          <form method="post" action="{{ url_for('admin.user_delete', user_id=u.id) }}"
+                onsubmit="return confirm('Delete this staff user?');">
+            <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+          </form>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

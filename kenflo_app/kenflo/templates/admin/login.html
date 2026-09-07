@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Staff Sign In | KENFLO{% endblock %}
+{% block content %}
+<section class="section"><div class="container narrow-sm">
+  <div class="card form-card">
+    <h1>Staff Sign In</h1>
+    <p class="form-note">KENFLO staff portal for managing client requests.</p>
+    <form method="post" action="{{ url_for('admin.login', next=request.args.get('next', '')) }}">
+      <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" maxlength="255" autofocus required>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" minlength="1" required>
+      <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+    </form>
+  </div>
+</div></section>
+{% endblock %}

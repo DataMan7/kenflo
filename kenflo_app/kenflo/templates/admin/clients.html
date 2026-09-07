@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Clients | KENFLO Staff{% endblock %}
+{% block content %}
+<div class="container admin-wrap">
+  <div class="page-head">
+    <h1>Clients</h1>
+    <a href="{{ url_for('admin.client_new') }}" class="btn btn-primary">+ New Client</a>
+  </div>
+
+  <form class="filter-bar" method="get" action="{{ url_for('admin.clients_list') }}">
+    <input type="text" name="q" placeholder="Search name, email, phone, city…" value="{{ filters.get('q', '') }}">
+    <select name="status">
+      <option value="">All statuses</option>
+      {% for key, label in client_statuses %}
+      <option value="{{ key }}" {{ 'selected' if filters.get('status') == key }}>{{ label }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-outline">Filter</button>
+    <a href="{{ url_for('admin.clients_list') }}" class="btn btn-ghost">Clear</a>
+  </form>
+
+  {% if pagination.items %}
+  <table class="table">
+    <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>City</th><th>Status</th><th>Requests</th><th>Added</th><th></th></tr></thead>
+    <tbody>
+      {% for c in pagination.items %}
+      <tr>
+        <td><a href="{{ url_for('admin.client_detail', client_id=c.id) }}">{{ c.full_name }}</a></td>
+        <td>{{ c.email or '—' }}</td>
+        <td>{{ c.phone or '—' }}</td>
+        <td>{{ c.city or '—' }}</td>
+        <td><span class="badge badge-c-{{ c.status }}">{{ c.status|capitalize }}</span></td>
+        <td>{{ c.requests|length }}</td>
+        <td>{{ c.created_at|dt }}</td>
+        <td><a class="btn btn-sm btn-outline" href="{{ url_for('admin.client_edit', client_id=c.id) }}">Edit</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="pagination">
+    {% if pagination.has_prev %}<a class="btn btn-sm btn-outline" href="{{ url_for('admin.clients_list', page=pagination.prev_num, **filters) }}">← Prev</a>{% endif %}
+    <span>Page {{ pagination.page }} of {{ pagination.pages or 1 }} ({{ pagination.total }} clients)</span>
+    {% if pagination.has_next %}<a class="btn btn-sm btn-outline" href="{{ url_for('admin.clients_list', page=pagination.next_num, **filters) }}">Next →</a>{% endif %}
+  </div>
+  {% else %}
+  <div class="panel"><p>No clients found.</p></div>
+  {% endif %}
+</div>
+{% endblock %}
