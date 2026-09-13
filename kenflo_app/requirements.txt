@@ -1,4 +1,7 @@
+# KENFLO production dependencies (minimal, reproducible)
+# Verified against: Ubuntu 24.04 / Python 3.12
 Flask>=3.1
 Flask-SQLAlchemy>=3.1
 SQLAlchemy>=2.0
-gunicorn>=22.0
+gunicorn>=26.0
+

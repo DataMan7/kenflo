@@ -4,3 +4,7 @@ __pycache__/
 instance/
 *.db
 .env
+
+# DigitalOcean droplet SSH key — NEVER commit private keys!
+/kenflo_app
+/kenflo_app.pub

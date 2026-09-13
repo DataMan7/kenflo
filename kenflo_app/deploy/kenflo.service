@@ -1,9 +1,10 @@
 # /etc/systemd/system/kenflo.service
 # Systemd unit for the KENFLO web application (gunicorn + Flask).
 #
-# 1) Copy to /etc/systemd/system/kenflo.service
-# 2) systemctl daemon-reload
-# 3) systemctl enable --now kenflo
+# 1) /etc/kenflo/kenflo.env   -> KENFLO_SECRET_KEY, KENFLO_COOKIE_SECURE (0600 root)
+# 2) Copy to /etc/systemd/system/kenflo.service
+# 3) systemctl daemon-reload
+# 4) systemctl enable --now kenflo
 
 [Unit]
 Description=KENFLO Emotional Health Services web app (gunicorn)
@@ -15,10 +16,9 @@ User=kenflo
 Group=www-data
 RuntimeDirectory=kenflo
 WorkingDirectory=/opt/kenflo/kenflo_app
+EnvironmentFile=/etc/kenflo/kenflo.env
 Environment="PATH=/opt/kenflo/kenflo_app/.venv/bin:/usr/bin"
-Environment="KENFLO_SECRET_KEY=CHANGE-ME-to-a-long-random-string"
-Environment="KENFLO_COOKIE_SECURE=1"
-# Environment="DATABASE_URL=postgresql+psycopg://kenflo:password@localhost/kenflo"
+Environment="PYTHONUNBUFFERED=1"
 ExecStart=/opt/kenflo/kenflo_app/.venv/bin/gunicorn -c gunicorn.conf.py "kenflo:create_app()"
 ExecReload=/bin/kill -s HUP $MAINPID
 Restart=on-failure
