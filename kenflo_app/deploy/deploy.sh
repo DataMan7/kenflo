@@ -131,7 +131,7 @@ cat > /etc/nginx/sites-available/kenflo.conf <<EOF
 server {
     listen 80;
     listen [::]:80;
-    server_name ${DOMAIN};
+    server_name ${DOMAIN} www.${DOMAIN};
 
     # --- Security headers ---
     add_header X-Frame-Options "SAMEORIGIN" always;
