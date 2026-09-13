@@ -29,7 +29,7 @@ NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=full
 ProtectHome=true
-ReadWritePaths=/var/www/kenflo /opt/kenflo
+ReadWritePaths=/opt/kenflo
 
 [Install]
 WantedBy=multi-user.target

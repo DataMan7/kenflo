@@ -10,14 +10,15 @@
 #   - SSH access to the droplet (key: kenflo_app/kenflo_app)
 #
 # Usage:
-#   DOMAIN=kenflo.example.com                \
-#   ADMIN_EMAIL=admin@kenflo.org             \
-#   ADMIN_PASSWORD='<long-random-password>'  \
+#   DOMAIN=kenflo.example.com SKIP_TLS=1                     \
+#   ADMIN_EMAIL=admin@kenflo.org                             \
+#   ADMIN_PASSWORD='<long-random-password>'                  \
 #   ./deploy/deploy.sh root@<droplet-ip>
 #
-#   If DOMAIN is set, certbot issues HTTPS certs for it (DNS must point at the
-#   droplet first). If DOMAIN is empty, the site is served over HTTP on the
-#   droplet IP (good for a first smoke test).
+# SSH auth: uses your default ~/.ssh identities unless SSH_PRIVATE_KEY is set.
+# If DOMAIN is set, certbot issues HTTPS certs for it (DNS must point at the
+# droplet first). Set SKIP_TLS=1 to deploy over HTTP and run TLS later.
+# If DOMAIN is empty, the site is served over HTTP on the droplet IP.
 #
 # Idempotent: safe to re-run for app updates (restarts the service).
 # =============================================================================
@@ -27,13 +28,24 @@ SSH_TARGET="${1:?Usage: $0 root@<droplet-ip> [domain]}"
 DOMAIN="${DOMAIN:-${2:-}}"
 ADMIN_EMAIL="${ADMIN_EMAIL:-admin@kenflo.org}"
 ADMIN_PASSWORD="${ADMIN_PASSWORD:-}"
+SKIP_TLS="${SKIP_TLS:-0}"
 APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-SSH_KEY="${SSH_PRIVATE_KEY:-$APP_DIR/kenflo_app}"
 REMOTE_APP="/opt/kenflo/kenflo_app"
-SSH_OPTS=(-i "$SSH_KEY" -o ConnectTimeout=15 -o BatchMode=yes)
+
+# SSH key selection: default ~/.ssh identities (works for this droplet).
+# Override with SSH_PRIVATE_KEY=/path/to/key if needed.
+if [[ -n "${SSH_PRIVATE_KEY:-}" ]]; then
+  SSH_KEY="$SSH_PRIVATE_KEY"
+  [[ -f "$SSH_KEY" ]] || { echo "ERROR: SSH_PRIVATE_KEY not found: $SSH_KEY" >&2; exit 1; }
+  SSH_OPTS=(-i "$SSH_KEY" -o ConnectTimeout=15 -o BatchMode=yes)
+  RSYNC_SSH="ssh -i $SSH_KEY -o StrictHostKeyChecking=accept-new"
+else
+  SSH_KEY=""
+  SSH_OPTS=(-o ConnectTimeout=15 -o BatchMode=yes)
+  RSYNC_SSH="ssh -o StrictHostKeyChecking=accept-new"
+fi
 
 command -v rsync >/dev/null || { echo "ERROR: rsync is required locally" >&2; exit 1; }
-[[ -f "$SSH_KEY" ]] || { echo "ERROR: SSH key not found: $SSH_KEY" >&2; exit 1; }
 
 if [[ -z "$ADMIN_PASSWORD" ]]; then
   echo "ERROR: export ADMIN_PASSWORD='<long-random-password>' (>=10 chars)" >&2
@@ -48,8 +60,9 @@ echo "==> [1/7] Checking SSH connectivity to $SSH_TARGET"
 ssh "${SSH_OPTS[@]}" "$SSH_TARGET" 'echo "  OK: connected to $(hostname) as $(whoami)"'
 
 echo "==> [2/7] Pushing app code to $REMOTE_APP (rsync)"
+ssh "${SSH_OPTS[@]}" "$SSH_TARGET" 'mkdir -p /opt/kenflo'
 rsync -az --delete \
-  -e "ssh -i $SSH_KEY -o StrictHostKeyChecking=accept-new" \
+  -e "$RSYNC_SSH" \
   --exclude='.venv' --exclude='__pycache__' --exclude='*.pyc' \
   --exclude='instance/' --exclude='*.db' --exclude='.env' \
   --exclude='kenflo_app' --exclude='kenflo_app.pub' \
@@ -59,6 +72,7 @@ echo "==> [3/7] Provisioning server (packages, user, venv, dependencies)"
 ssh "${SSH_OPTS[@]}" "$SSH_TARGET" 'bash -s' <<'REMOTE_PROVISION'
 set -euo pipefail
 export DEBIAN_FRONTEND=noninteractive
+REMOTE_APP="/opt/kenflo/kenflo_app"
 echo "  -- installing system packages"
 apt-get update -y
 apt-get install -y python3-venv python3-pip nginx certbot ufw
@@ -85,7 +99,9 @@ if [[ ! -f /etc/kenflo/kenflo.env ]] || ! grep -q '^KENFLO_SECRET_KEY=' /etc/ken
   chown root:root /etc/kenflo/kenflo.env
   chmod 600 /etc/kenflo/kenflo.env
 fi
-grep -q '^KENFLO_COOKIE_SECURE=' /etc/kenflo/kenflo.env || echo 'KENFLO_COOKIE_SECURE=1' >> /etc/kenflo/kenflo.env
+grep -q '^KENFLO_COOKIE_SECURE=' /etc/kenflo/kenflo.env || echo 'KENFLO_COOKIE_SECURE=0' >> /etc/kenflo/kenflo.env
+# During HTTP phase (no TLS) secure cookies break sessions; flip to 1 after certbot.
+sed -i 's/^KENFLO_COOKIE_SECURE=1$/KENFLO_COOKIE_SECURE=0/' /etc/kenflo/kenflo.env
 REMOTE_PROVISION
 
 echo "==> [4/7] Installing systemd unit + starting kenflo.service"
@@ -126,6 +142,7 @@ server {
     # --- Basic hardening ---
     client_max_body_size 1m;
     server_tokens off;
+    proxy_headers_hash_max_size 1024;
 
     # Block common probe paths
     location ~ /(\.git|\.env|\.ht) { deny all; return 404; }
@@ -140,12 +157,13 @@ server {
 
     # --- Gunicorn over Unix socket ---
     location / {
-        include proxy_params;
-        proxy_pass http://unix:/run/kenflo/kenflo.sock;
+        proxy_http_version 1.1;
         proxy_set_header Host \$host;
+        proxy_set_header Connection "";
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_pass http://unix:/run/kenflo/kenflo.sock;
         proxy_read_timeout 60s;
     }
 
@@ -165,24 +183,31 @@ ssh "${SSH_OPTS[@]}" "$SSH_TARGET" \
   "ADMIN_EMAIL='${ADMIN_EMAIL}' ADMIN_PASSWORD='${ADMIN_PASSWORD}'" 'bash -s' <<'REMOTE_SEED'
 set -euo pipefail
 REMOTE_APP="/opt/kenflo/kenflo_app"
-# load KENFLO_SECRET_KEY so create_app() can build (idempotent) session cookies
-set -a; . /etc/kenflo/kenflo.env; set +a
-export KENFLO_ADMIN_EMAIL="$ADMIN_EMAIL" KENFLO_ADMIN_PASSWORD="$ADMIN_PASSWORD"
 cd "$REMOTE_APP"
-sudo -u kenflo ./.venv/bin/flask --app run.py seed-admin
+# NOTE: sudo resets the environment by default, so pass vars explicitly via `env`.
+sudo -u kenflo env KENFLO_ADMIN_EMAIL="$ADMIN_EMAIL" KENFLO_ADMIN_PASSWORD="$ADMIN_PASSWORD" \
+     ./.venv/bin/flask --app run.py seed-admin
 REMOTE_SEED
 
-echo "==> [7/7] HTTPS via Let's Encrypt (if DOMAIN provided)"
-if [[ -n "$DOMAIN" ]]; then
+echo "==> [7/7] HTTPS via Let's Encrypt (if DOMAIN provided and SKIP_TLS=0)"
+if [[ -n "$DOMAIN" && "$SKIP_TLS" != "1" ]]; then
   ssh "${SSH_OPTS[@]}" "$SSH_TARGET" \
     "DOMAIN='${DOMAIN}' ADMIN_EMAIL='${ADMIN_EMAIL}'" 'bash -s' <<'REMOTE_CERTBOT'
 set -euo pipefail
 if ! command -v certbot >/dev/null 2>&1; then
   apt-get install -y certbot >/dev/null 2>&1 || true
 fi
-certbot --nginx -d "${DOMAIN}" --non-interactive --agree-tos -m "${ADMIN_EMAIL}" --redirect || \
-  echo "WARNING: certbot failed — check that DNS for ${DOMAIN} points to this droplet."
+certbot --nginx -d "${DOMAIN}" -d "www.${DOMAIN}" --non-interactive --agree-tos -m "${ADMIN_EMAIL}" --redirect || \
+  echo "TLS_MESSAGE_1: certbot did not finish. Ensure your DNS 'A' record for ${DOMAIN} / www points to this droplet's IP, then re-run deploy.sh."
+if [[ -d /etc/letsencrypt/live/${DOMAIN} ]]; then
+  sed -i 's/^KENFLO_COOKIE_SECURE=0$/KENFLO_COOKIE_SECURE=1/' /etc/kenflo/kenflo.env
+  systemctl restart kenflo
+  echo "Secure cookies enabled (KENFLO_COOKIE_SECURE=1)."
+fi
 REMOTE_CERTBOT
+elif [[ -n "$DOMAIN" && "$SKIP_TLS" == "1" ]]; then
+  echo "  SKIP_TLS=1 -> serving HTTP on $(echo "${SSH_TARGET#*@}"); run TLS later"
+  echo "  (re-run: DOMAIN=$DOMAIN ADMIN_PASSWORD=... ./deploy/deploy.sh $SSH_TARGET  <-- after DNS flip)"
 else
   echo "  (no DOMAIN set — skipping TLS; serving over HTTP)"
 fi
