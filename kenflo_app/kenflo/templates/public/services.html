@@ -10,6 +10,11 @@
   <p>KENFLO provides non-clinical educational and coaching services designed to help individuals, couples, and
     families strengthen communication, emotional understanding, problem-solving, and relationship skills.</p>
 
+  <figure class="page-media">
+    <img src="{{ url_for('static', filename='images/individual_wellness.jpeg') }}"
+      alt="Illustration of a person meditating among leaves, representing personal wellness" loading="lazy">
+  </figure>
+
   <div class="service">
     <h2>Emotional Wellness Support</h2>
     <p>Practical, non-clinical support for adults navigating everyday stress, grief and loss, burnout, emotional
@@ -39,6 +44,11 @@
       everyday family stress, and major life transitions.</p>
   </div>
 
+  <figure class="page-media page-media--sm">
+    <img src="{{ url_for('static', filename='images/family_relationships.jpeg') }}"
+      alt="Colorful figures of a family standing together with arms raised" loading="lazy">
+  </figure>
+
   <div class="service">
     <h2>Parenting Skills Coaching</h2>
     <p>Practical education and coaching to help parents strengthen parent-child communication, healthy boundaries,
@@ -54,9 +64,31 @@
       professional assistance may be appropriate.</p>
   </div>
 
+  <div class="service">
+    <h2>Mental Health First Aid Training</h2>
+    <p>An educational training program that teaches participants how to recognize common signs of emotional
+      distress and mental-health challenges, offer calm and non-judgmental initial support, and connect someone
+      to appropriate professional and community resources. Training covers risk factors and warning signs,
+      supportive conversation skills, when and how to involve professional or emergency help, and self-care for
+      helpers. Delivered in workshop format for workplaces, faith communities, schools, nonprofits, and
+      community groups. Participants learn to respond and refer — not to diagnose or treat.</p>
+  </div>
+
+  <div class="service">
+    <h2>Pastoral Counselling</h2>
+    <p>Faith-informed emotional wellness support for individuals, couples, families, and faith communities.
+      Conversations integrate a person's values, faith traditions, and spiritual practices into emotional
+      wellness, communication, grief and loss, relationship strain, caregiving pressures, and life transitions.
+      Sessions are non-clinical and are offered alongside — never in place of — licensed clinical care or
+      medical treatment. When needs extend beyond our scope, we help connect people with qualified pastoral
+      care providers and licensed professionals.</p>
+  </div>
+
   <div class="notice">
     <strong>Please note:</strong> these services are not psychotherapy, couples therapy, diagnosis, psychological
-    assessment, or clinical mental-health treatment.
+    assessment, or clinical mental-health treatment. Mental Health First Aid Training is an educational program and
+    does not qualify participants to diagnose conditions or provide treatment. Pastoral counselling is
+    faith-informed emotional wellness support and does not replace clinical, medical, or emergency care.
   </div>
 
   <a href="{{ url_for('public.contact') }}" class="btn btn-primary btn-lg">Request Individual or Family Support</a>

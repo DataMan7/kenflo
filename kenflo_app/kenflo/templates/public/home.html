@@ -3,11 +3,13 @@
 {% block content %}
 <section class="hero">
   <div class="container hero-inner">
+    <img class="hero-logo" src="{{ url_for('static', filename='images/logo_k.jpeg') }}"
+      alt="KENFLO Emotional Health Services LLC - Stronger Minds, Healthier Lives">
     <p class="eyebrow">KENFLO Emotional Health Services LLC</p>
     <h1>You Don't Have to Navigate Life's Challenges Alone</h1>
-    <p class="lede">Compassionate, culturally responsive, <strong>non-clinical</strong> emotional wellness
-      support, coaching, education, and practical skills development for individuals, families, youth,
-      communities, and organizations.</p>
+    <p class="lede">Compassionate, culturally responsive <strong>non-clinical</strong> emotional wellness support,
+      coaching, education, and practical skills development for individuals, families, youth, communities, and
+      organizations.</p>
     <div class="hero-actions">
       <a href="{{ url_for('public.contact') }}" class="btn btn-primary btn-lg">Find Support</a>
       <a href="{{ url_for('public.services') }}" class="btn btn-outline btn-lg">Explore Services</a>
@@ -31,28 +33,54 @@
     <p class="section-sub">Six paths of non-clinical emotional wellness support.</p>
     <div class="card-grid">
       <a class="card" href="{{ url_for('public.services') }}">
-        <div class="card-icon">🌿</div>
+        <div class="card-media">
+          <img src="{{ url_for('static', filename='images/individual_wellness.jpeg') }}"
+            alt="Illustration of a person meditating among leaves, representing personal wellness" loading="lazy">
+        </div>
         <h3>Individual Wellness</h3>
         <p>Build resilience, strengthen coping skills, navigate change, and support personal growth.</p>
       </a>
       <a class="card" href="{{ url_for('public.services') }}">
-        <div class="card-icon">🤝</div>
+        <div class="card-media">
+          <img src="{{ url_for('static', filename='images/family_relationships.jpeg') }}"
+            alt="Colorful figures of a family standing together with arms raised" loading="lazy">
+        </div>
         <h3>Families &amp; Relationships</h3>
         <p>Strengthen communication, relationships, parenting skills, and family connection.</p>
       </a>
       <a class="card" href="{{ url_for('public.youth_schools') }}">
-        <div class="card-icon">🎓</div>
+        <div class="card-media">
+          <img src="{{ url_for('static', filename='images/youth_schools.jpeg') }}"
+            alt="Young people joining hands in a circle over a world map" loading="lazy">
+        </div>
         <h3>Youth &amp; Schools</h3>
         <p>Equip young people with practical skills for resilience, communication, confidence, and healthier decision-making.</p>
       </a>
       <a class="card" href="{{ url_for('public.groups_workshops') }}">
-        <div class="card-icon">👥</div>
+        <div class="card-media">
+          <img src="{{ url_for('static', filename='images/groups_workshops.jpeg') }}"
+            alt="Participants working together around a table during a group workshop" loading="lazy">
+        </div>
         <h3>Groups &amp; Workshops</h3>
         <p>Bring people together for practical education, connection, reflection, and emotional wellness skills.</p>
       </a>
       <a class="card" href="{{ url_for('public.cultural_support') }}">
-        <div class="card-icon">🌍</div>
+        <div class="card-media">
+          <img src="{{ url_for('static', filename='images/cultural_adjustment.jpeg') }}"
+            alt="People mapping out concepts of culture, ethnicity, belief, tradition, and diversity" loading="lazy">
+        </div>
         <h3>Cultural Adjustment</h3>
+        <p>Support individuals and families navigating immigration, cultural transitions, changing family roles, identity, and belonging.</p>
+      </a>
+      <a class="card" href="{{ url_for('public.organizations') }}">
+        <div class="card-media">
+          <img src="{{ url_for('static', filename='images/logo_k.jpeg') }}"
+            alt="KENFLO Emotional Health Services LLC logo" loading="lazy">
+        </div>
+        <h3>Organizations &amp; Communities</h3>
+        <p>Strengthen workplaces, churches, nonprofits, schools, and community organizations through customized wellness education.</p>
+      </a>
+    </div>
 
 <section class="section section-alt">
   <div class="container split">
@@ -118,14 +146,3 @@
   </div>
 </section>
 {% endblock %}
-
-        <p>Support individuals and families navigating immigration, cultural transitions, changing family roles, identity, and belonging.</p>
-      </a>
-      <a class="card" href="{{ url_for('public.organizations') }}">
-        <div class="card-icon">🏢</div>
-        <h3>Organizations &amp; Communities</h3>
-        <p>Strengthen workplaces, churches, nonprofits, schools, and community organizations through customized wellness education.</p>
-      </a>
-    </div>
-  </div>
-</section>

@@ -204,6 +204,46 @@ button.btn { border: none; }
 .cta-band h2 { color: #fff; }
 .cta-band p { color: var(--sage-light); }
 
+/* ---------------- Official brand logo & page imagery ---------------- */
+.hero-logo {
+  display: block; width: 100%; max-width: 320px; height: auto; margin: 0 0 24px;
+  border-radius: var(--radius); border: 1px solid rgba(255,255,255,.16);
+  box-shadow: 0 14px 34px rgba(0,0,0,.34);
+}
+
+.card-media {
+  margin: -28px -28px 16px; overflow: hidden; border-radius: 10px 10px 0 0;
+  aspect-ratio: 4 / 3; background: var(--cream);
+  display: flex; align-items: center; justify-content: center;
+}
+.card-media img { display: block; width: 100%; height: 100%; object-fit: contain; }
+
+.page-media { margin: 0 0 28px; text-align: center; }
+.page-media img {
+  display: block; width: 100%; max-width: 360px; margin: 0 auto;
+  border-radius: var(--radius); box-shadow: var(--shadow);
+}
+.page-media--sm img { max-width: 300px; }
+
+.brand-band {
+  margin: 0 0 28px; padding: 26px 32px;
+  background: linear-gradient(135deg, var(--forest-dark) 0%, var(--forest) 60%, var(--forest-light) 100%);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+}
+.brand-band h2 { color: #fff; margin: 0 0 4px; font-size: 1.25rem; }
+.brand-band p { color: var(--sage-light); margin: 0; font-size: .95rem; }
+
+.logo-plate { margin: 0 0 30px; text-align: center; }
+.logo-plate img {
+  display: block; width: 100%; max-width: 520px; margin: 0 auto;
+  border-radius: var(--radius); box-shadow: var(--shadow);
+}
+
+@media (max-width: 720px) {
+  .hero-logo { max-width: 250px; }
+  .page-media img { max-width: 100%; }
+}
+
 
 /* ---------------- Admin ---------------- */
 .admin-wrap { padding: 34px 20px 64px; }
