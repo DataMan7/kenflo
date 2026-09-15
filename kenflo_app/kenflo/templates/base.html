@@ -33,7 +33,7 @@
   {% else %}
   <header class="site-header">
     <div class="container header-inner">
-      <a href="{{ url_for('public.home') }}" class="brand">KENFLO<span> Emotional Health Services</span></a>
+      <a href="{{ url_for('public.home') }}" class="brand"><span class="brand-logo"><img src="{{ url_for('static', filename='images/logo_k.jpeg') }}" alt="KENFLO logo"></span>KENFLO<span> Emotional Health Services</span></a>
       <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
       <nav class="site-nav" id="site-nav">
         <a href="{{ url_for('public.home') }}">Home</a>

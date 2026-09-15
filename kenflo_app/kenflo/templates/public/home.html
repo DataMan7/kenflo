@@ -2,18 +2,64 @@
 
 {% block content %}
 <section class="hero">
-  <div class="container hero-inner">
-    <img class="hero-logo" src="{{ url_for('static', filename='images/logo_k.jpeg') }}"
-      alt="KENFLO Emotional Health Services LLC - Stronger Minds, Healthier Lives">
-    <p class="eyebrow">KENFLO Emotional Health Services LLC</p>
-    <h1>You Don't Have to Navigate Life's Challenges Alone</h1>
-    <p class="lede">Compassionate, culturally responsive <strong>non-clinical</strong> emotional wellness support,
-      coaching, education, and practical skills development for individuals, families, youth, communities, and
-      organizations.</p>
-    <div class="hero-actions">
-      <a href="{{ url_for('public.contact') }}" class="btn btn-primary btn-lg">Find Support</a>
-      <a href="{{ url_for('public.services') }}" class="btn btn-outline btn-lg">Explore Services</a>
-      <a href="{{ url_for('public.contact', _anchor='request-form') }}" class="btn btn-ghost btn-lg">Partner With KENFLO</a>
+  <div class="container">
+    <div class="hero-carousel" id="hero-carousel" aria-live="polite" aria-roledescription="carousel">
+      <div class="hero-slide active" aria-hidden="false">
+        <img class="hero-slide-img" src="{{ url_for('static', filename='images/home1.jpeg') }}"
+          alt="Background image 1 of 3 for KENFLO Emotional Health Services" loading="eager">
+        <div class="hero-slide-overlay" aria-hidden="true"></div>
+        <div class="hero-slide-content">
+          <p class="eyebrow">KENFLO Emotional Health Services LLC</p>
+          <h1>You Don't Have to Navigate Life's Challenges Alone</h1>
+          <p class="lede">Compassionate, culturally responsive <strong>non-clinical</strong> emotional wellness support,
+            coaching, education, and practical skills development for individuals, families, youth, communities,
+            and organizations.</p>
+          <div class="hero-actions">
+            <a href="{{ url_for('public.contact') }}" class="btn btn-primary btn-lg">Find Support</a>
+            <a href="{{ url_for('public.services') }}" class="btn btn-outline btn-lg">Explore Services</a>
+            <a href="{{ url_for('public.contact', _anchor='request-form') }}" class="btn btn-ghost btn-lg">Partner With KENFLO</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-slide" aria-hidden="true">
+        <img class="hero-slide-img" src="{{ url_for('static', filename='images/home2.jpeg') }}"
+          alt="Background image 2 of 3 for KENFLO Emotional Health Services" loading="lazy">
+        <div class="hero-slide-overlay" aria-hidden="true"></div>
+        <div class="hero-slide-content">
+          <p class="eyebrow">KENFLO Emotional Health Services LLC</p>
+          <h1>You Don't Have to Navigate Life's Challenges Alone</h1>
+          <p class="lede">Compassionate, culturally responsive <strong>non-clinical</strong> emotional wellness support,
+            coaching, education, and practical skills development for individuals, families, youth, communities,
+            and organizations.</p>
+          <div class="hero-actions">
+            <a href="{{ url_for('public.contact') }}" class="btn btn-primary btn-lg">Find Support</a>
+            <a href="{{ url_for('public.services') }}" class="btn btn-outline btn-lg">Explore Services</a>
+            <a href="{{ url_for('public.contact', _anchor='request-form') }}" class="btn btn-ghost btn-lg">Partner With KENFLO</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-slide" aria-hidden="true">
+        <img class="hero-slide-img" src="{{ url_for('static', filename='images/home3.jpeg') }}"
+          alt="Background image 3 of 3 for KENFLO Emotional Health Services" loading="lazy">
+        <div class="hero-slide-overlay" aria-hidden="true"></div>
+        <div class="hero-slide-content">
+          <p class="eyebrow">KENFLO Emotional Health Services LLC</p>
+          <h1>You Don't Have to Navigate Life's Challenges Alone</h1>
+          <p class="lede">Compassionate, culturally responsive <strong>non-clinical</strong> emotional wellness support,
+            coaching, education, and practical skills development for individuals, families, youth, communities,
+            and organizations.</p>
+          <div class="hero-actions">
+            <a href="{{ url_for('public.contact') }}" class="btn btn-primary btn-lg">Find Support</a>
+            <a href="{{ url_for('public.services') }}" class="btn btn-outline btn-lg">Explore Services</a>
+            <a href="{{ url_for('public.contact', _anchor='request-form') }}" class="btn btn-ghost btn-lg">Partner With KENFLO</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-carousel-indicators" role="tablist" aria-label="Hero image selection">
+        <button role="tab" aria-selected="true" aria-label="Show image 1" data-slide="0" class="active"></button>
+        <button role="tab" aria-selected="false" aria-label="Show image 2" data-slide="1"></button>
+        <button role="tab" aria-selected="false" aria-label="Show image 3" data-slide="2"></button>
+      </div>
     </div>
   </div>
 </section>
@@ -74,8 +120,8 @@
       </a>
       <a class="card" href="{{ url_for('public.organizations') }}">
         <div class="card-media">
-          <img src="{{ url_for('static', filename='images/logo_k.jpeg') }}"
-            alt="KENFLO Emotional Health Services LLC logo" loading="lazy">
+          <img src="{{ url_for('static', filename='images/organisation_community.jpeg') }}"
+            alt="Organizations and communities strengthened through customized wellness education" loading="lazy">
         </div>
         <h3>Organizations &amp; Communities</h3>
         <p>Strengthen workplaces, churches, nonprofits, schools, and community organizations through customized wellness education.</p>

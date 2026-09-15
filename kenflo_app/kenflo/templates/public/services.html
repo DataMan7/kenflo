@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Individual &amp; Family Services | KENFLO Emotional Health Services{% endblock %}
+{% block title %}Our Services | KENFLO Emotional Health Services{% endblock %}
 {% block content %}
 <section class="page-hero"><div class="container">
-  <h1>Individual &amp; Family Services</h1>
-  <p>Stronger Communication. Healthier Relationships. Practical Skills for Everyday Life.</p>
+  <h1>Our Services</h1>
+  <p>Non-clinical emotional wellness support, coaching, education, and practical skills — built around people, not diagnoses.</p>
 </div></section>
 
 <section class="section"><div class="container prose">
@@ -16,72 +16,115 @@
   </figure>
 
   <div class="service">
-    <h2>Emotional Wellness Support</h2>
-    <p>Practical, non-clinical support for adults navigating everyday stress, grief and loss, burnout, emotional
-      strain, relationship challenges, personal transitions, caregiving pressures, and other life circumstances.
-      Sessions emphasize emotional awareness, resilience, healthy coping, reflection, problem-solving,
-      communication, and practical wellness strategies.</p>
+    <div class="service-media service-media--left">
+      <div class="service-media-img">
+        <img src="{{ url_for('static', filename='images/individual_wellness.jpeg') }}"
+          alt="Illustration of a person meditating among leaves, representing personal wellness" loading="lazy">
+      </div>
+      <div class="service-body">
+        <h2>Emotional Wellness Support</h2>
+        <p>Practical, non-clinical support for adults navigating everyday stress, grief and loss, burnout, emotional
+          strain, relationship challenges, personal transitions, caregiving pressures, and other life circumstances.
+          Sessions emphasize emotional awareness, resilience, healthy coping, reflection, problem-solving,
+          communication, and practical wellness strategies.</p>
+      </div>
+    </div>
   </div>
 
   <div class="service">
-    <h2>Life Coaching &amp; Personal Development</h2>
-    <p>Goal-oriented coaching for individuals seeking greater confidence, motivation, accountability, personal
-      direction, and support through significant life transitions. Areas may include: personal growth · goal
-      setting · motivation · decision-making · confidence · life transitions · accountability · healthy routines ·
-      purpose and direction.</p>
+    <div class="service-media service-media--left">
+      <div class="service-media-img">
+        <img src="{{ url_for('static', filename='images/life_coach_personal_develpment.jpeg') }}"
+          alt="Person reflecting and planning personal growth and life direction" loading="lazy">
+      </div>
+      <div class="service-body">
+        <h2>Life Coaching &amp; Personal Development</h2>
+        <p>Goal-oriented coaching for individuals seeking greater confidence, motivation, accountability, personal
+          direction, and support through significant life transitions. Areas may include: personal growth · goal
+          setting · motivation · decision-making · confidence · life transitions · accountability · healthy routines ·
+          purpose and direction.</p>
+      </div>
+    </div>
   </div>
 
   <div class="service">
-    <h2>Marriage &amp; Relationship Wellness Coaching</h2>
-    <p>Support for couples seeking to strengthen communication, listening skills, emotional understanding,
-      conflict-management skills, trust-building behaviors, shared goals, and healthy relationship habits.</p>
+    <div class="service-media service-media--right">
+      <div class="service-body">
+        <h2>Marriage &amp; Relationship Wellness Coaching</h2>
+        <p>Support for couples seeking to strengthen communication, listening skills, emotional understanding,
+          conflict-management skills, trust-building behaviors, shared goals, and healthy relationship habits.</p>
+      </div>
+      <div class="service-media-img">
+        <img src="{{ url_for('static', filename='images/Marriage_Relationship_Wellness_Coaching.jpeg') }}"
+          alt="Couple strengthening communication and relationship connection" loading="lazy">
+      </div>
+    </div>
   </div>
 
   <div class="service">
-    <h2>Family Emotional Wellness Support</h2>
-    <p>Practical support and education for families navigating communication difficulties, parent-teen challenges,
-      changing family roles, cultural transitions, immigration-related adjustment, intergenerational differences,
-      everyday family stress, and major life transitions.</p>
-  </div>
-
-  <figure class="page-media page-media--sm">
-    <img src="{{ url_for('static', filename='images/family_relationships.jpeg') }}"
-      alt="Colorful figures of a family standing together with arms raised" loading="lazy">
-  </figure>
-
-  <div class="service">
-    <h2>Parenting Skills Coaching</h2>
-    <p>Practical education and coaching to help parents strengthen parent-child communication, healthy boundaries,
-      consistency, emotional connection, conflict-management skills, age-appropriate expectations, family
-      routines, and positive parenting strategies. KENFLO places particular emphasis on supporting families
-      navigating multicultural, immigrant, and intergenerational experiences.</p>
+    <div class="service-media service-media--left">
+      <div class="service-media-img">
+        <img src="{{ url_for('static', filename='images/Family_Emotional_Wellness_Support.jpeg') }}"
+          alt="Family navigating communication and changing family roles together" loading="lazy">
+      </div>
+      <div class="service-body">
+        <h2>Family Emotional Wellness Support</h2>
+        <p>Practical support and education for families navigating communication difficulties, parent-teen challenges,
+          changing family roles, cultural transitions, immigration-related adjustment, intergenerational differences,
+          everyday family stress, and major life transitions.</p>
+      </div>
+    </div>
   </div>
 
   <div class="service">
-    <h2>Emotional Wellness Check-In &amp; Resource Navigation</h2>
-    <p>A structured non-clinical conversation designed to help individuals identify areas of stress or concern,
-      reflect on their current support systems, identify practical resources, and determine whether additional
-      professional assistance may be appropriate.</p>
+    <div class="service-media service-media--right">
+      <div class="service-body">
+        <h2>Emotional Wellness Check-In &amp; Resource Navigation</h2>
+        <p>A structured non-clinical conversation designed to help individuals identify areas of stress or concern,
+          reflect on their current support systems, identify practical resources, and determine whether additional
+          professional assistance may be appropriate.</p>
+      </div>
+      <div class="service-media-img">
+        <img src="{{ url_for('static', filename='images/Emotional_Wellness_Check-In_&_Resource_Navigation.jpeg') }}"
+          alt="Reflective conversation supporting emotional wellness and resource navigation" loading="lazy">
+      </div>
+    </div>
   </div>
 
   <div class="service">
-    <h2>Mental Health First Aid Training</h2>
-    <p>An educational training program that teaches participants how to recognize common signs of emotional
-      distress and mental-health challenges, offer calm and non-judgmental initial support, and connect someone
-      to appropriate professional and community resources. Training covers risk factors and warning signs,
-      supportive conversation skills, when and how to involve professional or emergency help, and self-care for
-      helpers. Delivered in workshop format for workplaces, faith communities, schools, nonprofits, and
-      community groups. Participants learn to respond and refer — not to diagnose or treat.</p>
+    <div class="service-media service-media--left">
+      <div class="service-media-img">
+        <img src="{{ url_for('static', filename='images/Mental_Health_First_Aid_Training.jpeg') }}"
+          alt="Workshop participants learning to recognize and respond to emotional distress" loading="lazy">
+      </div>
+      <div class="service-body">
+        <h2>Mental Health First Aid Training</h2>
+        <p>An educational training program that teaches participants how to recognize common signs of emotional
+          distress and mental-health challenges, offer calm and non-judgmental initial support, and connect someone
+          to appropriate professional and community resources. Training covers risk factors and warning signs,
+          supportive conversation skills, when and how to involve professional or emergency help, and self-care for
+          helpers. Delivered in workshop format for workplaces, faith communities, schools, nonprofits, and
+          community groups. Participants learn to respond and refer — not to diagnose or treat.</p>
+      </div>
+    </div>
   </div>
 
   <div class="service">
-    <h2>Pastoral Counselling</h2>
-    <p>Faith-informed emotional wellness support for individuals, couples, families, and faith communities.
-      Conversations integrate a person's values, faith traditions, and spiritual practices into emotional
-      wellness, communication, grief and loss, relationship strain, caregiving pressures, and life transitions.
-      Sessions are non-clinical and are offered alongside — never in place of — licensed clinical care or
-      medical treatment. When needs extend beyond our scope, we help connect people with qualified pastoral
-      care providers and licensed professionals.</p>
+    <div class="service-media service-media--right">
+      <div class="service-body">
+        <h2>Pastoral Counselling</h2>
+        <p>Faith-informed emotional wellness support for individuals, couples, families, and faith communities.
+          Conversations integrate a person's values, faith traditions, and spiritual practices into emotional
+          wellness, communication, grief and loss, relationship strain, caregiving pressures, and life transitions.
+          Sessions are non-clinical and are offered alongside — never in place of — licensed clinical care or
+          medical treatment. When needs extend beyond our scope, we help connect people with qualified pastoral
+          care providers and licensed professionals.</p>
+      </div>
+      <div class="service-media-img">
+        <img src="{{ url_for('static', filename='images/Pastoral_Counselling.jpeg') }}"
+          alt="Faith-informed emotional wellness support integrated with values and tradition" loading="lazy">
+      </div>
+    </div>
   </div>
 
   <div class="notice">
