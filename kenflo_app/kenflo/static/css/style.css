@@ -155,23 +155,24 @@ button.btn { border: none; }
 
 /* ---------------- Header / nav ---------------- */
 .site-header { background: var(--white); box-shadow: var(--shadow); position: sticky; top: 0; z-index: 100; }
-.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; flex-wrap: wrap; gap: 10px; }
-.brand { font-family: var(--font-heading); font-size: 1.35rem; font-weight: 700; color: var(--forest-dark); text-decoration: none; letter-spacing: .5px; }
-.brand span { color: var(--gold-dark); font-size: 1rem; font-weight: 400; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; flex-wrap: wrap; gap: 8px; }
+.brand { font-family: var(--font-heading); font-size: 1.18rem; font-weight: 700; color: var(--forest-dark); text-decoration: none; letter-spacing: .5px; white-space: nowrap; }
+.brand span { color: var(--gold-dark); font-size: .88rem; font-weight: 400; }
 .brand .brand-logo {
-  display: inline-block; height: 34px; width: auto; margin-right: 10px; vertical-align: middle;
+  display: inline-block; height: 30px; width: auto; margin-right: 9px; vertical-align: middle;
   border: 1px solid rgba(20,53,46,.18); border-radius: 6px; padding: 2px; background: rgba(255,255,255,.55);
   transition: transform .18s ease, box-shadow .18s ease; image-rendering: -webkit-optimize-contrast;
 }
 .brand .brand-logo:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(20,53,46,.18); }
 .brand .brand-logo img { height: 100%; width: auto; display: block; }
 @media (max-width: 900px) { .brand .brand-logo { height: 26px; margin-right: 8px; } }
+@media (min-width: 1011px) and (max-width: 1150px) { .brand span { display: none; } }
 @media (max-width: 560px) { .brand .brand-logo { height: 22px; margin-right: 6px; }
   .brand { font-size: 1.15rem; } .brand span { font-size: .82rem; } }
 .brand-light { color: #fff; }
 .brand-light span { color: var(--gold); }
-.site-nav { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
-.site-nav a { text-decoration: none; color: var(--ink); font-weight: 500; font-size: .93rem; }
+.site-nav { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.site-nav a { text-decoration: none; color: var(--ink); font-weight: 500; font-size: .87rem; }
 .site-nav a:hover { color: var(--forest-light); }
 .site-nav .nav-cta { color: #fff; }
 .nav-toggle { display: none; background: none; border: 1px solid var(--sage); border-radius: 8px; font-size: 1.3rem; padding: 4px 12px; cursor: pointer; color: var(--forest); }
@@ -426,12 +427,17 @@ button.btn { border: none; }
   .stat-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr; }
   .hero h1 { font-size: 2rem; }
+  .table { display: block; overflow-x: auto; }
+}
+/* Collapse the nav to the hamburger earlier than the rest of the layout: the nine
+   top-level items need ~750px, so leaving the full nav visible below ~1010px would
+   force .header-inner to wrap the nav onto a second row. */
+@media (max-width: 1010px) {
   .nav-toggle { display: block; }
   .site-nav {
     display: none; width: 100%; flex-direction: column; align-items: flex-start; padding: 14px 0; gap: 12px;
   }
   .site-nav.open { display: flex; }
-  .table { display: block; overflow-x: auto; }
 }
 @media (max-width: 560px) {
   .card-grid { grid-template-columns: 1fr; }
