@@ -66,9 +66,9 @@ img { max-width: 100%; }
 .btn-gold:hover { background: var(--gold-dark); color: #fff; }
 .contact-info { background: var(--forest-dark); color: var(--sage-light); border-radius: var(--radius); padding: 30px 32px; margin-top: 36px; }
 .contact-info h3 { color: #fff; margin: 0 0 14px; font-size: 1.3rem; }
-.contact-info .contact-email { display: inline-flex; align-items: center; gap: 12px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14); border-radius: 10px; padding: 12px 18px; margin: 0 0 12px; transition: background .18s, border-color .18s; }
-.contact-info .contact-email:hover { background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.30); }
-.contact-info .contact-email:hover .email-label { text-decoration: underline; }
+.contact-info .contact-email, .contact-info .contact-phone { display: inline-flex; align-items: center; gap: 12px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14); border-radius: 10px; padding: 12px 18px; margin: 0 0 12px; transition: background .18s, border-color .18s; }
+.contact-info .contact-email:hover, .contact-info .contact-phone:hover { background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.30); }
+.contact-info .contact-email:hover .email-label, .contact-info .contact-phone:hover .email-label { text-decoration: underline; }
 .contact-info .email-label { color: var(--gold); font-weight: 600; font-size: .92rem; }
 .contact-info a.email-link { color: #fff; text-decoration: none; font-size: 1.02rem; font-weight: 500; word-break: break-all; font-family: var(--font-body); }
 .contact-info a.email-link:hover { text-decoration: underline; color: var(--gold); }
@@ -166,15 +166,61 @@ button.btn { border: none; }
 .brand .brand-logo:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(20,53,46,.18); }
 .brand .brand-logo img { height: 100%; width: auto; display: block; }
 @media (max-width: 900px) { .brand .brand-logo { height: 26px; margin-right: 8px; } }
-@media (min-width: 1011px) and (max-width: 1150px) { .brand span { display: none; } }
+/* Ten capsule items plus the brand exceed one 1120px row once the descriptor is
+   shown, so the descriptor is held back while the full nav is visible and returns
+   where there is room for it (the hamburger layout, and very wide screens). The
+   logo and "KENFLO" wordmark still carry the brand at those widths. */
+@media (min-width: 1200px) { .brand span { display: none; } }
+@media (min-width: 1800px) { .brand span { display: inline; } }
+/* Very narrow phones cannot fit logo + wordmark + descriptor next to the toggle. */
+@media (max-width: 380px) { .brand span { display: none; } }
 @media (max-width: 560px) { .brand .brand-logo { height: 22px; margin-right: 6px; }
   .brand { font-size: 1.15rem; } .brand span { font-size: .82rem; } }
 .brand-light { color: #fff; }
 .brand-light span { color: var(--gold); }
-.site-nav { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.site-nav a { text-decoration: none; color: var(--ink); font-weight: 500; font-size: .87rem; }
-.site-nav a:hover { color: var(--forest-light); }
-.site-nav .nav-cta { color: #fff; }
+.site-nav { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+
+/* Capsule ("tablet") nav items.
+   Each item is a pill whose green tint fades to fully transparent at both ends, so
+   the pills read as soft capsules sitting in the white header instead of hard-edged
+   blocks. A blurred, negative-spread shadow adds a halo that also fades out into the
+   background. Nothing here paints on the header's white background itself.
+   Sizing is deliberately compact: ten capsules plus the brand have to share a 1120px
+   row, so padding and the gap are kept tight to hold the header to a single row. */
+.site-nav a {
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  min-height: 36px; padding: 8px 11px; border-radius: 999px;
+  text-decoration: none; color: var(--forest-dark); font-weight: 600; font-size: .84rem;
+  letter-spacing: 0; white-space: nowrap;
+  background-image: linear-gradient(90deg,
+    rgba(156, 180, 160, 0) 0%,
+    rgba(156, 180, 160, .34) 18%,
+    rgba(216, 231, 220, .62) 50%,
+    rgba(156, 180, 160, .34) 82%,
+    rgba(156, 180, 160, 0) 100%);
+  box-shadow: 0 5px 14px -7px rgba(31, 78, 68, .40), inset 0 0 0 1px rgba(31, 78, 68, .07);
+  transition: color .18s ease, transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+}
+.site-nav a:hover {
+  color: var(--forest-dark); transform: translateY(-1px);
+  box-shadow: 0 8px 18px -7px rgba(31, 78, 68, .55), inset 0 0 0 1px rgba(31, 78, 68, .16);
+}
+.site-nav a:focus-visible { outline: 2px solid var(--forest-light); outline-offset: 2px; }
+/* Marks the page the visitor is on. */
+.site-nav a[aria-current="page"] {
+  color: var(--forest); font-weight: 700; background-color: rgba(220, 232, 222, .60);
+  box-shadow: 0 6px 16px -7px rgba(31, 78, 68, .50), inset 0 0 0 1px rgba(31, 78, 68, .18);
+}
+
+/* The call to action stays a solid pill so it is not mistaken for a nav tab. */
+.site-nav .nav-cta {
+  color: #fff; background-image: none; background-color: var(--forest);
+  min-height: 38px; padding: 9px 17px; font-size: .85rem;
+  box-shadow: 0 8px 18px -8px rgba(31, 78, 68, .75);
+}
+.site-nav .nav-cta:hover { background-color: var(--forest-dark); color: #fff; }
+.site-nav .nav-cta[aria-current="page"] { background-color: var(--forest-dark); }
+
 .nav-toggle { display: none; background: none; border: 1px solid var(--sage); border-radius: 8px; font-size: 1.3rem; padding: 4px 12px; cursor: pointer; color: var(--forest); }
 
 .admin-topbar { background: var(--forest-dark); padding: 10px 0; }
@@ -325,6 +371,41 @@ button.btn { border: none; }
 .brand-band h2 { color: #fff; margin: 0 0 4px; font-size: 1.25rem; }
 .brand-band p { color: var(--sage-light); margin: 0; font-size: .95rem; }
 
+/* ---------------- Balanced text + image split ----------------
+   Grid children are forced to min-width:0 so a wide image can never blow its column
+   out and ride over the neighbouring text (the failure mode when .card-media — which
+   is built for the padded inside of a .card — was reused here). */
+.split--balanced { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); align-items: center; gap: 34px; }
+.split--balanced > * { min-width: 0; }
+.split--balanced .brand-band { margin: 0; }
+
+/* Framed standalone image: the frame owns the aspect ratio and centre-crops, so the
+   picture fills its box edge to edge with no letterboxing and no overflow. */
+.media-frame {
+  margin: 0; border-radius: var(--radius); overflow: hidden;
+  background: var(--cream-dark); border: 1px solid rgba(31, 78, 68, .10);
+  box-shadow: var(--shadow);
+}
+.media-frame img { display: block; width: 100%; height: auto; object-fit: cover; object-position: center; }
+/* organisation_community1.jpeg is exactly 4:5, so this frame shows it uncropped. */
+.split--balanced .media-frame img { aspect-ratio: 4 / 5; height: 100%; }
+@media (max-width: 900px) {
+  .split--balanced { gap: 22px; }
+  .split--balanced .brand-band { margin-bottom: 2px; }
+  /* Stacked layout: keep the picture at its native 4:5 and cap the width instead of
+     cropping it into a short banner, so the whole image stays visible. */
+  .split--balanced .media-frame { max-width: 440px; margin: 0 auto; }
+}
+
+/* Partner chips: left-aligned with a little lift so all thirteen categories stay
+   legible and wrap naturally instead of running off the edge of the column. */
+.partner-label { margin-bottom: 0; }
+.chip-cloud--partners { justify-content: flex-start; margin: 14px 0 26px; }
+.chip-cloud--partners .chip {
+  background: var(--white); border: 1px solid rgba(31, 78, 68, .16);
+  box-shadow: 0 2px 7px -4px rgba(31, 78, 68, .35);
+}
+
 .logo-plate { margin: 0 0 30px; text-align: center; }
 .logo-plate img {
   display: block; width: 100%; max-width: 520px; margin: 0 auto;
@@ -429,19 +510,134 @@ button.btn { border: none; }
   .hero h1 { font-size: 2rem; }
   .table { display: block; overflow-x: auto; }
 }
-/* Collapse the nav to the hamburger earlier than the rest of the layout: the nine
-   top-level items need ~750px, so leaving the full nav visible below ~1010px would
-   force .header-inner to wrap the nav onto a second row. */
-@media (max-width: 1010px) {
+/* Collapse the nav to the hamburger until there is genuinely room for ten capsules
+   beside the brand (see the brand-descriptor notes above). Showing it any earlier
+   wraps the nav onto its own row and doubles the header height. */
+@media (max-width: 1199px) {
   .nav-toggle { display: block; }
   .site-nav {
-    display: none; width: 100%; flex-direction: column; align-items: flex-start; padding: 14px 0; gap: 12px;
+    display: none; width: 100%; flex-direction: column; align-items: stretch;
+    padding: 14px 0 6px; gap: 8px;
   }
   .site-nav.open { display: flex; }
+  /* Full-width capsules: generous 46px tap targets for thumbs, with the same
+     fade-out edge treatment so the dropdown does not look like a solid slab. */
+  .site-nav a {
+    width: 100%; justify-content: flex-start; min-height: 46px; padding: 12px 20px;
+    font-size: .97rem;
+    background-image: linear-gradient(90deg,
+      rgba(156, 180, 160, .06) 0%,
+      rgba(216, 231, 220, .55) 40%,
+      rgba(156, 180, 160, .06) 100%);
+  }
+  .site-nav .nav-cta {
+    justify-content: center; margin-top: 4px; padding: 13px 20px; min-height: 48px;
+    background-image: none;
+  }
 }
 @media (max-width: 560px) {
   .card-grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
   .hero { padding: 18px 0 26px; }
+}
+
+/* ---------------- Meet the Team ---------------- */
+.team-grid { display: grid; grid-template-columns: 1fr; gap: 22px; margin: 26px 0 30px; }
+.team-card {
+  background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);
+  overflow: hidden; border-top: 4px solid var(--sage); display: flex; flex-direction: column;
+}
+.team-photo {
+  aspect-ratio: 1 / 1; width: 100%; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(160deg, var(--forest-dark) 0%, var(--forest) 55%, var(--forest-light) 100%);
+}
+.team-photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.team-monogram { font-family: var(--font-heading); font-size: 3.1rem; letter-spacing: 3px; color: rgba(255,255,255,.94); }
+.team-body { padding: 22px 24px 26px; }
+/* Scoped tightly so .prose h2 cannot win on specificity and re-space the card titles. */
+.team-card .team-name { margin: 0 0 4px; font-size: 1.25rem; }
+.team-card .team-role {
+  margin: 0 0 14px; font-size: .78rem; font-weight: 700; letter-spacing: 1.2px;
+  text-transform: uppercase; color: var(--gold-dark);
+}
+.team-card .team-meta { list-style: none; margin: 0; padding: 0; font-size: .92rem; }
+.team-card .team-meta li {
+  display: flex; gap: 12px; align-items: baseline; padding: 7px 0;
+  border-bottom: 1px dashed var(--cream-dark); overflow-wrap: anywhere;
+}
+.team-card .team-meta li:last-child { border-bottom: none; }
+.team-card .team-key {
+  flex: 0 0 62px; color: var(--muted); font-weight: 700; font-size: .74rem;
+  text-transform: uppercase; letter-spacing: .6px;
+}
+.team-card .team-focus { margin: 14px 0 0; font-size: .92rem; color: var(--muted); }
+@media (min-width: 680px) {
+  .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; }
+}
+
+/* ---------------- Footer contact ---------------- */
+.site-footer .footer-contact { font-size: .95rem; margin: -2px 0 12px; }
+.site-footer .footer-contact a { color: #fff; text-decoration: none; font-weight: 600; }
+.site-footer .footer-contact a:hover { color: var(--gold); text-decoration: underline; }
+
+/* ============================================================
+   UX / quality layer — mobile-first, progressively enhanced.
+   Everything here either fixes a usability defect or adds polish
+   on top of the base layout; nothing redefines the core structure.
+   ============================================================ */
+
+/* 1. Touch: any tappable control clears the 44px minimum target size. */
+@media (pointer: coarse) {
+  .btn:not(.btn-block) { min-height: 46px; display: inline-flex; align-items: center; justify-content: center; }
+  .btn-block { min-height: 50px; }
+  .site-nav a { min-height: 46px; }
+}
+
+/* 2. Anchors land below the sticky header rather than tucked behind it. */
+#main, section[id], [id="request-form"], [id="privacy"], [id="terms"], [id="accessibility"] {
+  scroll-margin-top: 96px;
+}
+
+/* 3. Visible keyboard focus everywhere — previously only form fields were styled. */
+a:focus-visible, button:focus-visible, summary:focus-visible,
+input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* 4. The sticky header gains depth once scrolled, so content reads as passing
+      underneath it instead of merging with it. */
+.site-header { transition: box-shadow .25s ease, background-color .25s ease; }
+.site-header.is-scrolled { box-shadow: 0 6px 22px rgba(20, 53, 46, .16); }
+
+/* 5. Large screens: widen the measure and spacing instead of stretching line length. */
+@media (min-width: 1200px) {
+  .container { max-width: 1200px; }
+  .card-grid { gap: 26px; }
+}
+@media (min-width: 1500px) {
+  .container { max-width: 1280px; }
+  h1 { font-size: 2.45rem; }
+  .section { padding: 72px 0; }
+}
+@media (min-width: 1800px) {
+  .container { max-width: 1360px; }
+}
+
+/* 6. Balanced headline wrapping, and gentler paragraph rag where supported. */
+h1, h2, h3 { text-wrap: balance; }
+.prose p, .lede { text-wrap: pretty; }
+
+/* 7. Honour the OS "reduce motion" preference: no crossfade, no lift, no auto-motion. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .site-nav a:hover, .card:hover, .btn-primary:hover, .brand .brand-logo:hover { transform: none; }
 }
 

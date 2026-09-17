@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Meet the Team | KENFLO Emotional Health Services{% endblock %}
+{% block meta_description %}Meet the KENFLO Emotional Health Services LLC leadership team — the people behind our culturally responsive, non-clinical emotional wellness support in Minnesota.{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="container">
+  <h1>Meet the Team</h1>
+  <p>The people behind KENFLO — accountable, accessible, and here to help.</p>
+</div></section>
+
+{#
+  Staff portraits are optional and add themselves automatically.
+
+  Drop a portrait into kenflo/static/images/ named exactly "staff1.png" (for the
+  first person) or "staff2.png" (for the second), then reload this page: the
+  monogram placeholder is replaced by the photo with no template edit needed.
+  Portraits are shown in a square (1:1) frame cropped from the centre, so a
+  square or portrait photo around 600x600px or larger works best.
+#}
+<section class="section"><div class="container prose">
+  <p>KENFLO Emotional Health Services LLC is led by a small, hands-on team. When you reach out, a real person
+    reviews your request and responds using the contact method you choose.</p>
+
+  <div class="team-grid">
+    {% for person in team %}
+    <article class="team-card">
+      <div class="team-photo">
+        {% if person.has_photo %}
+        <img src="{{ url_for('static', filename='images/' ~ person.photo) }}"
+          alt="Portrait of {{ person.name }}" width="600" height="600" loading="lazy" decoding="async">
+        {% else %}
+        <span class="team-monogram" aria-hidden="true">{{ person.initials }}</span>
+        {% endif %}
+      </div>
+      <div class="team-body">
+        <h2 class="team-name">{{ person.name }}</h2>
+        <p class="team-role">{{ person.role }}</p>
+        <ul class="team-meta">
+          {% if person.email %}
+          <li><span class="team-key">Email</span><a href="mailto:{{ person.email }}">{{ person.email }}</a></li>
+          {% endif %}
+          {% if person.phone %}
+          <li><span class="team-key">{{ person.phone_label }}</span>
+            <a href="tel:{{ person.phone_href }}">{{ person.phone }}</a></li>
+          {% endif %}
+        </ul>
+        {% if person.focus %}<p class="team-focus">{{ person.focus }}</p>{% endif %}
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+
+  <div class="panel">
+    <h3>Want to join us?</h3>
+    <p>We are growing. If you share our commitment to culturally responsive, stigma-free emotional wellness
+      support, we would like to hear from you.</p>
+    <a href="{{ url_for('public.contact') }}" class="btn btn-primary">Contact KENFLO</a>
+  </div>
+
+  <div class="notice">
+    <strong>Please note:</strong> KENFLO is not an emergency or crisis-response service. If there is immediate
+    danger, call <strong>911</strong>. For 24/7 emotional or mental-health support, call or text
+    <strong>988</strong>.
+  </div>
+</div></section>
+{% endblock %}

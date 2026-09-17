@@ -1,4 +1,5 @@
 """Public marketing site + client intake form."""
+import os
 import re
 
 from flask import Blueprint, abort, current_app, flash, redirect, render_template, request, url_for
@@ -13,6 +14,40 @@ EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 VALID_CATEGORIES = {k for k, _ in REQUEST_CATEGORIES}
 VALID_CONTACT = {k for k, _ in PREFERRED_CONTACT}
+
+# ---------------------------------------------------------------------------
+# Public team directory — single source of truth for the "Meet the Team" page.
+#
+# To publish a portrait, drop the file named in "photo" into kenflo/static/images/.
+# The page checks for it at render time and swaps the monogram for the photo, so
+# no template change is needed. Only publish business contact details here: this
+# list is rendered on a public page. Personal/mobile numbers must stay out — see
+# the notes in the team template.
+# ---------------------------------------------------------------------------
+STAFF = [
+    {
+        "name": "Dr (Pr.) Kennedy M. Ntachidi",
+        "role": "Executive Officer — Programs",
+        "email": "dken@kenfloehs.com",
+        "phone": "+1 763 762 0658",
+        "phone_href": "+17637620658",
+        "phone_label": "Office",
+        "photo": "staff1.png",
+        "initials": "KN",
+        "focus": "Program design and delivery, facilitation, partnership development, and community education.",
+    },
+    {
+        "name": "Florence M. Bosine",
+        "role": "Executive Officer — Administration",
+        "email": "info@kenfloehs.com",
+        "phone": "+1 763 762 0658",
+        "phone_href": "+17637620658",
+        "phone_label": "Office",
+        "photo": "staff2.png",
+        "initials": "FB",
+        "focus": "Client intake and scheduling, records, communications, and day-to-day operations.",
+    },
+]
 
 
 @bp.app_template_filter("dt")
@@ -88,6 +123,18 @@ def youth_schools():
 @bp.route("/organizations")
 def organizations():
     return render_template("public/organizations.html")
+
+
+@bp.route("/team")
+def team():
+    """Public staff directory. Portraits are optional — see STAFF above."""
+    images_dir = os.path.join(current_app.static_folder, "images")
+    members = []
+    for person in STAFF:
+        member = dict(person)
+        member["has_photo"] = os.path.isfile(os.path.join(images_dir, person["photo"]))
+        members.append(member)
+    return render_template("public/team.html", team=members)
 
 
 @bp.route("/cultural-support")
