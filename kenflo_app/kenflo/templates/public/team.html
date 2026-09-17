@@ -32,7 +32,7 @@
         {% endif %}
       </div>
       <div class="team-body">
-        <h2 class="team-name">{{ person.name }}</h2>
+        <h2 class="team-name">{{ person.name }}{% if person.credential %}<span class="team-credential">, {{ person.credential }}</span>{% endif %}</h2>
         <p class="team-role">{{ person.role }}</p>
         <ul class="team-meta">
           {% if person.email %}

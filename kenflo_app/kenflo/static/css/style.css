@@ -95,15 +95,15 @@ img { max-width: 100%; }
 .service h2 { font-size: 1.3rem; }
 .service-media { margin: -6px 0 16px; }
 .service-media--left { display: flex; gap: 26px; align-items: flex-start; }
-.service-media--left .service-media-img { flex: 0 0 172px; width: 172px; height: 132px; border-radius: var(--radius); overflow: hidden;
-  box-shadow: var(--shadow); background: var(--cream-dark); position: relative; }
-.service-media--left .service-media-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.service-media--left .service-media-img { flex: 0 0 172px; width: 172px; aspect-ratio: 1 / 1; border-radius: var(--radius); overflow: hidden;
+  box-shadow: var(--shadow); background: var(--white); position: relative; }
+.service-media--left .service-media-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
 .service-media--left .service-body { flex: 1; min-width: 0; }
 .service-media--left .service-body h2 { margin-top: 0; }
 .service-media--right { display: flex; gap: 26px; align-items: flex-start; }
-.service-media--right .service-media-img { flex: 0 0 172px; width: 172px; height: 132px; border-radius: var(--radius); overflow: hidden;
-  box-shadow: var(--shadow); background: var(--cream-dark); position: relative; margin-left: auto; }
-.service-media--right .service-media-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.service-media--right .service-media-img { flex: 0 0 172px; width: 172px; aspect-ratio: 1 / 1; border-radius: var(--radius); overflow: hidden;
+  box-shadow: var(--shadow); background: var(--white); position: relative; margin-left: auto; }
+.service-media--right .service-media-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
 .service-media--right .service-body { flex: 1; min-width: 0; text-align: left; }
 .service-media--right .service-body h2 { margin-top: 0; }
 .service-media--right .service-body p:last-child { margin-bottom: 0; }
@@ -557,6 +557,7 @@ button.btn { border: none; }
 .team-body { padding: 22px 24px 26px; }
 /* Scoped tightly so .prose h2 cannot win on specificity and re-space the card titles. */
 .team-card .team-name { margin: 0 0 4px; font-size: 1.25rem; }
+.team-card .team-credential { display: inline; font-weight: 400; font-size: .8em; color: var(--muted); }
 .team-card .team-role {
   margin: 0 0 14px; font-size: .78rem; font-weight: 700; letter-spacing: 1.2px;
   text-transform: uppercase; color: var(--gold-dark);

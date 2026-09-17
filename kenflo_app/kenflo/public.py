@@ -26,7 +26,13 @@ VALID_CONTACT = {k for k, _ in PREFERRED_CONTACT}
 # ---------------------------------------------------------------------------
 STAFF = [
     {
-        "name": "Dr (Pr.) Kennedy M. Ntachidi",
+        # "Dr (Pr.)" is an academic/doctorate title, not a clinical licence, and the
+        # licence status is being verified separately with the MN Board of Psychology.
+        # An optional "credential" (e.g. "PhD in Public Health") can be filled in
+        # below and is rendered after the name; while it is blank, only the name
+        # shown here is displayed.
+        "name": "Dr (Pr.) Kennedy M. Nyachiro",
+        "credential": "",
         "role": "Executive Officer — Programs",
         "email": "dken@kenfloehs.com",
         "phone": "+1 763 762 0658",
@@ -37,7 +43,8 @@ STAFF = [
         "focus": "Program design and delivery, facilitation, partnership development, and community education.",
     },
     {
-        "name": "Florence M. Bosine",
+        "name": "Florence M. Bosire",
+        "credential": "",
         "role": "Executive Officer — Administration",
         "email": "info@kenfloehs.com",
         "phone": "+1 763 762 0658",
